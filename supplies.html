@@ -4,21 +4,22 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow"><meta name="theme-color" content="#21594c">
 <meta name="description" content="Request cleaning products and replacement parts for Azure Residences.">
-<title>Azure · Cleaning supplies</title>
-<link rel="icon" href="icon.svg" type="image/svg+xml">
+<title>MJ Concierge · Cleaning supplies</title>
+<link rel="icon" href="icon.svg?v=20261031-guides" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;550;600;650;700&family=Manrope:wght@400;500;600;650;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="repairs.css"><link rel="stylesheet" href="supplies.css"><link rel="stylesheet" href="cupboard-photos.css">
-<script src="core.js" defer></script><script src="cloud.js?v=20261031-photos" defer></script><script src="repairs-client.js" defer></script><script src="cupboard-photos.js" defer></script><script src="supplies.js?v=20261031-photos" defer></script>
+<link rel="stylesheet" href="styles.css?v=20261031-guides"><link rel="stylesheet" href="repairs.css"><link rel="stylesheet" href="supplies.css"><link rel="stylesheet" href="cupboard-photos.css">
+<script src="core.js" defer></script><script src="cloud.js?v=20261031-photos" defer></script><script src="repairs-client.js" defer></script><script src="cupboard-photos.js" defer></script><script src="supplies.js?v=20261031-guides" defer></script>
 </head>
 <body class="repairs-page supplies-page">
 <a class="skip-link" href="#requests">Skip to supply requests</a>
 <aside class="sidebar">
-  <a class="brand" href="./" aria-label="Azure home"><span class="brand-mark" aria-hidden="true">a<span>~</span></span><span>azure<span class="brand-sub">RESIDENCE CARE</span></span></a>
+  <a class="brand brand-mj" href="https://mcjconcierge.com/" aria-label="MJ Concierge homepage"><span class="brand-mark" aria-hidden="true">MJ</span><span>MJ Concierge<span class="brand-sub">RESIDENCE CARE</span></span></a>
   <div class="sidebar-label">YOUR HOME</div>
   <nav class="main-nav" aria-label="Main navigation">
     <a href="./#visit" class="nav-link"><span data-icon="sun"></span>Visit overview<span class="nav-arrow">↗</span></a>
     <a href="./#checklist" class="nav-link"><span data-icon="checklist"></span>Cleaning checklist<span class="nav-arrow">↗</span></a>
+    <a href="guides.html" class="nav-link"><span data-icon="book"></span>How-to guides<span class="nav-arrow">↗</span></a>
     <a href="repairs.html" class="nav-link"><span data-icon="repair"></span>Home repairs<span class="nav-arrow">↗</span></a>
     <a href="supplies.html" class="nav-link selected" aria-current="page"><span data-icon="bag"></span>Cleaning supplies<span class="nav-arrow">↗</span></a>
     <a href="./#report" class="nav-link"><span data-icon="send"></span>Finish & report<span class="nav-arrow">↗</span></a>
@@ -28,7 +29,7 @@
   <div class="sidebar-foot"><span class="tiny-wave">≈</span> Made for a beautiful everyday.</div>
 </aside>
 <div class="page">
-  <header class="topbar"><a class="mobile-brand" href="./">azure<span>RESIDENCE CARE</span></a><div class="breadcrumb">Azure Residences <span>/</span> <b>Cleaning supplies</b></div><a class="repair-back" href="./#checklist">← Cleaning checklist</a></header>
+  <header class="topbar"><a class="mobile-brand mobile-brand-mj" href="https://mcjconcierge.com/" aria-label="MJ Concierge homepage">MJ Concierge<span>RESIDENCE CARE</span></a><div class="breadcrumb">Azure Residences <span>/</span> <b>Cleaning supplies</b></div><a class="repair-back" href="./#checklist">← Cleaning checklist</a></header>
   <main class="repairs-main">
     <section class="repair-intro" aria-labelledby="supply-title"><div><span class="eyebrow">KEEP THE CUPBOARD READY</span><h1 id="supply-title">Cleaning supplies<span>.</span></h1><p>Running low? Request a product or replacement part here, so it’s ready for the next clean.</p></div><button class="button button-dark" id="add-request"><span data-icon="plus"></span>Request an item</button></section>
     <div class="repair-stats" aria-label="Supply request totals"><div><span class="status-dot todo"></span><strong id="count-needed">—</strong><span>Needed</span></div><div><span class="status-dot progress"></span><strong id="count-ordered">—</strong><span>Ordered</span></div><div><span class="status-dot fixed"></span><strong id="count-restocked">—</strong><span>Restocked</span></div></div>
@@ -50,7 +51,7 @@
     <footer class="page-footer"><span>AZURE RESIDENCES · PALM JUMEIRAH</span><a href="./#checklist">Back to cleaning →</a></footer>
   </main>
 </div>
-<nav class="mobile-nav" aria-label="Mobile navigation"><a href="./#visit"><span data-icon="sun"></span>Visit</a><a href="./#checklist"><span data-icon="checklist"></span>Checklist</a><a href="repairs.html"><span data-icon="repair"></span>Repairs</a><a href="supplies.html" class="active" aria-current="page"><span data-icon="bag"></span>Supplies</a><a href="./#report"><span data-icon="send"></span>Report</a></nav>
+<nav class="mobile-nav" aria-label="Mobile navigation"><a href="./#checklist"><span data-icon="checklist"></span>Checklist</a><a href="guides.html"><span data-icon="book"></span>Guides</a><a href="repairs.html"><span data-icon="repair"></span>Repairs</a><a href="supplies.html" class="active" aria-current="page"><span data-icon="bag"></span>Supplies</a><a href="./#report"><span data-icon="send"></span>Report</a></nav>
 <dialog id="supply-dialog" aria-labelledby="supply-dialog-title">
   <div class="dialog-head"><div><span class="eyebrow">AZURE · CLEANING SUPPLIES</span><h2 id="supply-dialog-title">Request an item</h2></div><button class="icon-button" id="close-request" aria-label="Close supply request"><span data-icon="close"></span></button></div>
   <form id="supply-form">

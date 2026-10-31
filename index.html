@@ -4,21 +4,22 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow"><meta name="theme-color" content="#f7f8f4">
 <meta name="description" content="The cleaning companion for Azure Residences. One home, two people, one shared checklist.">
-<title>Azure · The cleaning companion</title>
-<link rel="icon" href="icon.svg" type="image/svg+xml">
+<title>MJ Concierge · The cleaning companion</title>
+<link rel="icon" href="icon.svg?v=20261031-guides" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;550;600;650;700&family=Manrope:wght@400;500;600;650;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=20261031-fountain"><link rel="stylesheet" href="cupboard-photos.css">
-<script src="data.js?v=20261031-sauna" defer></script><script src="core.js?v=20261031-fountain" defer></script><script src="cloud.js?v=20261031-photos" defer></script><script src="cupboard-photos.js" defer></script><script src="app.js?v=20261031-fountain" defer></script>
+<link rel="stylesheet" href="styles.css?v=20261031-guides"><link rel="stylesheet" href="cupboard-photos.css">
+<script src="data.js?v=20261031-guides" defer></script><script src="core.js?v=20261031-fountain" defer></script><script src="cloud.js?v=20261031-photos" defer></script><script src="cupboard-photos.js" defer></script><script src="app.js?v=20261031-guides" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#checklist">Skip to checklist</a>
 <aside class="sidebar">
-  <a class="brand" href="#visit" aria-label="Azure home"><span class="brand-mark" aria-hidden="true">a<span>~</span></span><span>azure<span class="brand-sub">RESIDENCE CARE</span></span></a>
+  <a class="brand brand-mj" href="https://mcjconcierge.com/" aria-label="MJ Concierge homepage"><span class="brand-mark" aria-hidden="true">MJ</span><span>MJ Concierge<span class="brand-sub">RESIDENCE CARE</span></span></a>
   <div class="sidebar-label">YOUR VISIT</div>
   <nav class="main-nav" aria-label="Main navigation">
     <a href="#visit" class="nav-link"><span data-icon="sun"></span>Visit overview<span class="nav-arrow">↗</span></a>
     <a href="#checklist" class="nav-link selected"><span data-icon="checklist"></span>The checklist<span class="nav-badge" id="side-total">0</span></a>
+    <a href="guides.html" class="nav-link"><span data-icon="book"></span>How-to guides<span class="nav-arrow">↗</span></a>
   </nav>
   <div class="sidebar-label rooms-label">ROOM BY ROOM <span id="room-total"></span></div>
   <nav id="side-rooms" class="side-rooms" aria-label="Choose a room"></nav>
@@ -29,7 +30,7 @@
   <div class="sidebar-foot"><span class="tiny-wave">≈</span> Made for a beautiful everyday.</div>
 </aside>
 <div class="page">
-  <header class="topbar"><a class="mobile-brand" href="#visit">azure<span>RESIDENCE CARE</span></a><div class="breadcrumb">Azure Residences <span>/</span> <b>The cleaning companion</b></div><span class="location"><span data-icon="pin"></span>Palm Jumeirah, Dubai</span></header>
+  <header class="topbar"><a class="mobile-brand mobile-brand-mj" href="https://mcjconcierge.com/" aria-label="MJ Concierge homepage">MJ Concierge<span>RESIDENCE CARE</span></a><div class="breadcrumb">Azure Residences <span>/</span> <b>The cleaning companion</b></div><span class="location"><span data-icon="pin"></span>Palm Jumeirah, Dubai</span></header>
   <main>
     <section class="hero" id="visit" aria-labelledby="hero-title">
       <img class="hero-image" src="img/palm-coast.jpg" alt="Palm Jumeirah coastline and calm sea" fetchpriority="high">
@@ -41,6 +42,7 @@
       <div class="visit-progress"><div class="progress-ring" id="progress-ring"><span id="percentage">0<small>%</small></span></div><div><strong id="prog-count">0 of 0 tasks</strong><p id="prog-label">A fresh checklist, ready for you.</p><span class="sync" id="sync" role="status">Connecting to shared checklist…</span></div></div>
     </section>
     <section class="team-card" aria-labelledby="team-heading"><div><h2 id="team-heading"><span data-icon="people"></span>One home. One shared checklist.</h2><p>Pick the same date on both phones. Tick a task and it updates for everyone.</p></div><button class="button share-link" id="share-access"><span data-icon="copy"></span>Copy cleaning link</button></section>
+    <a class="guide-shortcut" href="guides.html"><span data-icon="book"></span><span>Need a hand?<strong>Equipment videos &amp; care guides</strong></span><span data-icon="arrow"></span></a>
     <section class="checklist-section" id="checklist" aria-labelledby="checklist-title">
       <div class="section-heading"><div><span class="eyebrow">SMALL DETAILS. A BIG DIFFERENCE.</span><h2 id="checklist-title">Your cleaning checklist<span class="title-dot">.</span></h2></div><label class="hide-toggle"><input type="checkbox" id="hide-done"><span class="switch" aria-hidden="true"></span>Hide completed</label></div>
       <div class="room-tabs" id="room-tabs" role="group" aria-label="Rooms"></div>
@@ -68,7 +70,7 @@
     <footer class="page-footer"><span>AZURE RESIDENCES <span class="footer-dot">·</span> PALM JUMEIRAH</span><span>Coastal photo by <a href="https://unsplash.com/photos/a-beach-with-palm-trees-and-buildings-in-the-background-yOSMn_kpWLs" target="_blank" rel="noopener">Nelemson Guevarra / Unsplash</a></span></footer>
   </main>
 </div>
-<nav class="mobile-nav" aria-label="Mobile navigation"><a href="#visit"><span data-icon="sun"></span>Visit</a><a href="#checklist" class="active"><span data-icon="checklist"></span>Checklist<span id="mobile-progress">0%</span></a><a href="repairs.html"><span data-icon="repair"></span>Repairs</a><a href="supplies.html"><span data-icon="bag"></span>Supplies</a><a href="#report"><span data-icon="send"></span>Report</a></nav>
+<nav class="mobile-nav" aria-label="Mobile navigation"><a href="#checklist" class="active"><span data-icon="checklist"></span>Checklist<span id="mobile-progress">0%</span></a><a href="guides.html"><span data-icon="book"></span>Guides</a><a href="repairs.html"><span data-icon="repair"></span>Repairs</a><a href="supplies.html"><span data-icon="bag"></span>Supplies</a><a href="#report"><span data-icon="send"></span>Report</a></nav>
 <dialog id="date-dialog" aria-labelledby="date-dialog-title"><div class="dialog-head"><div><span class="eyebrow">MONDAY & THURSDAY</span><h2 id="date-dialog-title">Choose your visit</h2></div><button class="icon-button" data-close="date-dialog" aria-label="Close date picker"><span data-icon="close"></span></button></div><p>The right tasks appear automatically for each date.</p><div class="dates" id="dates"></div><label class="field-label" for="other-date">Or choose another date</label><input type="date" id="other-date"><button class="button button-dark calendar-done" data-close="date-dialog">Done<span data-icon="check"></span></button></dialog>
 <dialog id="lightbox" aria-labelledby="photo-title"><div class="dialog-head"><h2 id="photo-title">Photo guide</h2><button class="icon-button" data-close="lightbox" aria-label="Close photo guide"><span data-icon="close"></span></button></div><div class="gallery" id="lb-gallery"></div></dialog>
 <dialog id="history-dialog" aria-labelledby="history-title"><div class="dialog-head"><div><span class="eyebrow">YOUR CLEANING HISTORY</span><h2 id="history-title">Saved visits</h2></div><button class="icon-button" data-close="history-dialog" aria-label="Close saved visits"><span data-icon="close"></span></button></div><p class="field-hint">Dated reports saved for both phones. Later changes to the checklist do not alter these records.</p><div id="history-list"></div><div id="saved-report" hidden><button class="media-button" id="history-back">← All saved visits</button><div id="saved-report-photos" aria-label="Saved cupboard photos"></div><pre id="saved-report-text"></pre><div class="report-actions"><a class="button button-dark" id="saved-wa" target="_blank" rel="noopener">Send to Michael</a><button class="button save-only" id="download-report">Download report</button></div></div></dialog>

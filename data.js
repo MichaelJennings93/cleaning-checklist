@@ -9,6 +9,10 @@ const V = {
   grillBrush: ["Brush demo · 3 min (similar model)", "https://www.youtube.com/watch?v=9ycJS4dVpus"],
   stainforceUse: ["Shark · how to use", "https://www.youtube.com/watch?v=uecQ3ylcVos"],
   stainforceCare: ["Shark · clean & care · 2:35", "https://www.youtube.com/watch?v=-WyoxLZ8NF8"],
+  dysonPurifier: ["Dyson HushJet · cleaning & care", "https://www.youtube.com/watch?v=3-BZ2eUvjrc"],
+  cowayPre: ["Coway · clean the pre-filters", "https://www.youtube.com/watch?v=urOsdoAhJRY"],
+  cowayMax: ["Coway · replace the Max2 filters", "https://www.youtube.com/watch?v=bgFCcMooOYw"],
+  cowaySensor: ["Coway · sensors & air outlet", "https://www.youtube.com/watch?v=P6YiFeZnbwQ"],
 };
 const P = (src, cap, bad) => ({ src: "img/" + src + ".jpg", cap, bad: !!bad });
 const DONE = (what) => ({ src: null, cap: "<b>Perfect:</b> " + what + ". Photo to be inserted." });
@@ -136,7 +140,7 @@ const ROOMS = [
       ["monthly", "Washing machine clean", "Wipe the door seal and the soap drawer. Run an empty hot drum-clean cycle."],
     ] },
   { step: 4, title: "Machines and last walk round", lead: "After all the vacuuming is finished.", videos: [V.dyson, V.robot],
-    photos: [P("dyson-v12-and-washer", "Dyson vacuum on its wall dock.")],
+    photos: [P("dyson-v12-and-washer", "Dyson vacuum on its wall dock."), P("coway-airmega", "The grey Coway Airmega beside the living-room cabinet, to the left of the tall light panel.")],
     tasks: [
       ["mon", "Dyson vacuum", "Empty and wipe the bin. Rinse the filter in cold water and leave it out to dry (24 hours). Pull hair off the brush (no water on it). Rinse the soft roller. Check for blockages."],
       ["mon", "Robot vacuum", "Cut hair off the main brush and side brush. Tap the filter clean (do not wash it). Rinse the mop pads. Wipe the sensors and wheels. If the dust bag is full, tell Michael."],
@@ -201,7 +205,7 @@ const MEDIA = {
   "Robot vacuum": { p: ["l_robot_base"], v: ["robot"] },
   "Robot finished": { p: ["l_robot_base"] },
   "Gas off, diffusers on": { p: ["b_gas", "diffuser-kitchen-tower"] },
-  "Air purifiers": { p: ["diffuser-kitchen-tower", "r_hubs"] },
+  "Air purifiers": { p: ["diffuser-kitchen-tower", "r_hubs", "coway-airmega"], v: ["dysonPurifier", "cowayPre", "cowayMax", "cowaySensor"] },
   "Dishwasher empty": { p: ["kitchen-overview"] },
   "Laundry away": { p: ["r_wardrobe", "r_clothes_out"] },
   "Wash and dry": { p: ["dyson-v12-and-washer"] },

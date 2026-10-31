@@ -44,6 +44,18 @@ As requested, this is an unlisted, account-free link, not a private website. Any
 - supplies.html / supplies.css / supplies.js: product and part requests, status history and WhatsApp sharing. `node tests/supplies.integration.cjs` verifies shared persistence, duplicate/race protection and report snapshots against loopback only.
 - cupboard-photos.js / cupboard-photos.css: visit uploads, shared galleries and saved report photos. `node tests/photos.integration.cjs` verifies uploads, validation, retry/concurrency safety, date isolation and immutable photo snapshots against loopback only. The backend requires the BUCKET R2 binding and cupboard_photos D1 migration.
 
+## Equipment handbook
+
+`guides.html` gathers all checklist videos into a searchable equipment library, with area filters, shareable device links, care notes and photos. `guides-data.js` references the existing `V`, `ALL_PHOTOS` and task text from `data.js`; it does not create a second checklist or write visit records. YouTube opens in a separate tab, and thumbnails load only when a device guide is opened. The library currently contains 17 guides and all 14 videos. Manufacturer sources appear in the relevant care notes. Existing demonstrations of other models (Grillion, Ninja AF100 and Dreame L10s Ultra) are explicitly labelled; Eight Sleep’s video is labelled as a setup reference.
+
+Purifier identification is based on the owner's photos: the bedroom unit matches the Dyson HushJet Compact HJ10's distinctive star nozzle; the grey living-room unit matches the Coway Airmega 300/400 family. Its exact 300/400/S variant is not inferred from a front photograph, and the guide asks cleaners to check the label before ordering filters. The Coway photo comes from `Photos/Camera/20260923_122734.jpg` on the NAS, resized with orientation applied and metadata removed, served as `img/coway-airmega.jpg`.
+
+- Dyson HushJet maintenance: https://www.youtube.com/watch?v=3-BZ2eUvjrc and https://www.dyson.com.sg/products/air-purifiers-and-fans/dyson-hushjet-purifier-compact-hj10/owners
+- Coway pre-filter, Max2 and sensor videos: https://cowaymega.zendesk.com/hc/en-us/sections/205134088-Airmega-Support-Videos
+- Coway 300/400-series filter instructions: https://cowaymega.zendesk.com/hc/en-us/articles/6498417702035-Filter-Maintenance-for-Airmega-400-400S-300-300S
+
+The MJ Concierge wordmark and mobile logo on every cleaning page link to `https://mcjconcierge.com/`. Azure Residences remains the property name. Five mobile tabs keep the checklist, guides, repairs, supplies and report within reach.
+
 ## Photography
 
 The coastal hero is Palm Jumeirah area photography, not a photograph of the Azure building.

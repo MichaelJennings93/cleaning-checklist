@@ -4,21 +4,22 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow"><meta name="theme-color" content="#21594c">
 <meta name="description" content="The shared home repair and snag list for Azure Residences.">
-<title>Azure · Home repairs</title>
-<link rel="icon" href="icon.svg" type="image/svg+xml">
+<title>MJ Concierge · Home repairs</title>
+<link rel="icon" href="icon.svg?v=20261031-guides" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;550;600;650;700&family=Manrope:wght@400;500;600;650;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="repairs.css">
-<script src="core.js" defer></script><script src="cloud.js" defer></script><script src="repairs-client.js" defer></script><script src="repairs.js" defer></script>
+<link rel="stylesheet" href="styles.css?v=20261031-guides"><link rel="stylesheet" href="repairs.css">
+<script src="core.js" defer></script><script src="cloud.js" defer></script><script src="repairs-client.js" defer></script><script src="repairs.js?v=20261031-guides" defer></script>
 </head>
 <body class="repairs-page">
 <a class="skip-link" href="#jobs">Skip to repairs</a>
 <aside class="sidebar">
-  <a class="brand" href="./" aria-label="Azure home"><span class="brand-mark" aria-hidden="true">a<span>~</span></span><span>azure<span class="brand-sub">RESIDENCE CARE</span></span></a>
+  <a class="brand brand-mj" href="https://mcjconcierge.com/" aria-label="MJ Concierge homepage"><span class="brand-mark" aria-hidden="true">MJ</span><span>MJ Concierge<span class="brand-sub">RESIDENCE CARE</span></span></a>
   <div class="sidebar-label">YOUR HOME</div>
   <nav class="main-nav" aria-label="Main navigation">
     <a href="./#visit" class="nav-link"><span data-icon="sun"></span>Visit overview<span class="nav-arrow">↗</span></a>
     <a href="./#checklist" class="nav-link"><span data-icon="checklist"></span>Cleaning checklist<span class="nav-arrow">↗</span></a>
+    <a href="guides.html" class="nav-link"><span data-icon="book"></span>How-to guides<span class="nav-arrow">↗</span></a>
     <a href="repairs.html" class="nav-link selected" aria-current="page"><span data-icon="repair"></span>Home repairs<span class="nav-arrow">↗</span></a>
     <a href="supplies.html" class="nav-link"><span data-icon="bag"></span>Cleaning supplies<span class="nav-arrow">↗</span></a>
     <a href="./#report" class="nav-link"><span data-icon="send"></span>Finish & report<span class="nav-arrow">↗</span></a>
@@ -28,7 +29,7 @@
   <div class="sidebar-foot"><span class="tiny-wave">≈</span> Made for a beautiful everyday.</div>
 </aside>
 <div class="page">
-  <header class="topbar"><a class="mobile-brand" href="./">azure<span>RESIDENCE CARE</span></a><div class="breadcrumb">Azure Residences <span>/</span> <b>Home repairs</b></div><a class="repair-back" href="./#checklist">← Cleaning checklist</a></header>
+  <header class="topbar"><a class="mobile-brand mobile-brand-mj" href="https://mcjconcierge.com/" aria-label="MJ Concierge homepage">MJ Concierge<span>RESIDENCE CARE</span></a><div class="breadcrumb">Azure Residences <span>/</span> <b>Home repairs</b></div><a class="repair-back" href="./#checklist">← Cleaning checklist</a></header>
   <main class="repairs-main">
     <section class="repair-intro" aria-labelledby="repair-title"><div><span class="eyebrow">A LITTLE CARE, BEYOND THE CLEAN</span><h1 id="repair-title">Home repairs<span>.</span></h1><p>Your shared snag list. Arrange the help, follow the progress, and tick off the fixes.</p></div><button class="button button-dark" id="add-issue"><span data-icon="plus"></span>Add a job</button></section>
     <div class="repair-stats" aria-label="Repair totals"><div><span class="status-dot todo"></span><strong id="count-todo">—</strong><span>To do</span></div><div><span class="status-dot progress"></span><strong id="count-progress">—</strong><span>In progress</span></div><div><span class="status-dot fixed"></span><strong id="count-fixed">—</strong><span>Fixed</span></div></div>
@@ -44,7 +45,7 @@
     <footer class="page-footer"><span>AZURE RESIDENCES · PALM JUMEIRAH</span><a href="./#checklist">Back to cleaning →</a></footer>
   </main>
 </div>
-<nav class="mobile-nav" aria-label="Mobile navigation"><a href="./#visit"><span data-icon="sun"></span>Visit</a><a href="./#checklist"><span data-icon="checklist"></span>Checklist</a><a href="repairs.html" class="active" aria-current="page"><span data-icon="repair"></span>Repairs</a><a href="supplies.html"><span data-icon="bag"></span>Supplies</a><a href="./#report"><span data-icon="send"></span>Report</a></nav>
+<nav class="mobile-nav" aria-label="Mobile navigation"><a href="./#checklist"><span data-icon="checklist"></span>Checklist</a><a href="guides.html"><span data-icon="book"></span>Guides</a><a href="repairs.html" class="active" aria-current="page"><span data-icon="repair"></span>Repairs</a><a href="supplies.html"><span data-icon="bag"></span>Supplies</a><a href="./#report"><span data-icon="send"></span>Report</a></nav>
 <dialog id="issue-dialog" aria-labelledby="issue-dialog-title">
   <div class="dialog-head"><div><span class="eyebrow">AZURE · HOME REPAIRS</span><h2 id="issue-dialog-title">Add a job</h2></div><button class="icon-button" id="close-issue" aria-label="Close repair details"><span data-icon="close"></span></button></div>
   <form id="issue-form">

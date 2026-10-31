@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow"><meta name="theme-color" content="#21594c">
+<meta name="description" content="Equipment videos, quick instructions and care guides for the home at Azure Residences.">
+<title>MJ Concierge · How-to guides</title>
+<link rel="icon" href="icon.svg?v=20261031-guides" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;550;600;650;700&family=Manrope:wght@400;500;600;650;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=20261031-guides"><link rel="stylesheet" href="guides.css?v=20261031-guides">
+<script src="data.js?v=20261031-guides" defer></script><script src="guides-data.js?v=20261031-guides" defer></script><script src="guides.js?v=20261031-guides" defer></script>
+</head>
+<body class="guides-page">
+<a class="skip-link" href="#guide-library">Skip to guides</a>
+<aside class="sidebar">
+  <a class="brand brand-mj" href="https://mcjconcierge.com/" aria-label="MJ Concierge homepage"><span class="brand-mark" aria-hidden="true">MJ</span><span>MJ Concierge<span class="brand-sub">RESIDENCE CARE</span></span></a>
+  <div class="sidebar-label">YOUR HOME</div>
+  <nav class="main-nav" aria-label="Main navigation">
+    <a href="./#visit" class="nav-link"><span data-icon="sun"></span>Visit overview<span class="nav-arrow">↗</span></a>
+    <a href="./#checklist" class="nav-link"><span data-icon="checklist"></span>Cleaning checklist<span class="nav-arrow">↗</span></a>
+    <a href="guides.html" class="nav-link selected" aria-current="page"><span data-icon="book"></span>How-to guides<span class="nav-arrow">↗</span></a>
+    <a href="repairs.html" class="nav-link"><span data-icon="repair"></span>Home repairs<span class="nav-arrow">↗</span></a>
+    <a href="supplies.html" class="nav-link"><span data-icon="bag"></span>Cleaning supplies<span class="nav-arrow">↗</span></a>
+    <a href="./#report" class="nav-link"><span data-icon="send"></span>Finish & report<span class="nav-arrow">↗</span></a>
+  </nav>
+  <div class="guide-sidebar-note"><span class="eyebrow">A LITTLE KNOW-HOW</span><p>Good care starts<br>with knowing how.</p></div>
+  <div class="home-card"><img src="img/hero-sea.jpg" alt="The sea view from Azure Residences"><span>OUR LITTLE CORNER OF THE PALM</span><p>A home worth caring for.</p></div>
+  <div class="sidebar-foot"><span class="tiny-wave">≈</span> Made for a beautiful everyday.</div>
+</aside>
+<div class="page">
+  <header class="topbar"><a class="mobile-brand mobile-brand-mj" href="https://mcjconcierge.com/" aria-label="MJ Concierge homepage">MJ Concierge<span>RESIDENCE CARE</span></a><div class="breadcrumb">Azure Residences <span>/</span> <b>How-to guides</b></div><a class="guide-back" href="./#checklist">← Checklist</a></header>
+  <main>
+    <section class="guides-hero" aria-labelledby="guides-title">
+      <div class="guides-hero-copy"><span class="eyebrow">THE HOME HANDBOOK</span><h1 id="guides-title">A little know-how.<br><em>A lot of care.</em></h1><p>Find your device. Watch how it’s done.<br>Keep everything working beautifully.</p><div class="guide-hero-meta"><span data-icon="play"></span><span id="library-summary">Videos & care notes, all in one place</span></div></div>
+      <div class="guides-hero-photo"><img src="img/b_sauna_seaview.jpg" alt="Sunlight inside the sauna overlooking the sea"><span>EVERY DETAIL, CARED FOR.</span></div>
+    </section>
+    <section id="guide-library" aria-labelledby="library-title">
+      <div class="guide-library-heading"><div><span class="eyebrow">YOUR EQUIPMENT, EXPLAINED</span><h2 id="library-title">What are you caring for?</h2></div><p id="guide-count" role="status" aria-live="polite"></p></div>
+      <div class="guide-controls"><label class="guide-search"><span data-icon="search"></span><input type="search" id="guide-search" placeholder="Search a device, filter or task…" aria-label="Search guides" autocomplete="off"><button type="button" id="clear-search" aria-label="Clear search" hidden><span data-icon="close"></span></button></label><div class="guide-filters" id="guide-filters" role="group" aria-label="Filter guides by area"></div></div>
+      <div class="guide-grid" id="guide-grid"></div>
+      <div class="guide-empty" id="guide-empty" hidden><span data-icon="search"></span><h3>No guides found</h3><p>Try a device name like “Dyson”, or a job like “filter”.</p><button class="button button-dark" id="reset-guides">Show all guides</button></div>
+    </section>
+    <aside class="guide-supplies"><span class="guide-supplies-icon" data-icon="bag"></span><div><h2>Need a filter or refill?</h2><p>Add it to the shared supplies list so Michael knows what’s needed.</p></div><a class="button" href="supplies.html?request=1">Request an item<span data-icon="arrow"></span></a></aside>
+    <footer class="page-footer"><span>MJ CONCIERGE <span class="footer-dot">·</span> AZURE RESIDENCES</span><a href="./#checklist">Back to the checklist →</a></footer>
+  </main>
+</div>
+<nav class="mobile-nav" aria-label="Mobile navigation"><a href="./#checklist"><span data-icon="checklist"></span>Checklist</a><a href="guides.html" class="active" aria-current="page"><span data-icon="book"></span>Guides</a><a href="repairs.html"><span data-icon="repair"></span>Repairs</a><a href="supplies.html"><span data-icon="bag"></span>Supplies</a><a href="./#report"><span data-icon="send"></span>Report</a></nav>
+<dialog id="guide-dialog" aria-labelledby="guide-title"><div class="dialog-head"><div><span class="eyebrow" id="guide-model"></span><h2 id="guide-title"></h2></div><button class="icon-button" id="close-guide" aria-label="Close guide"><span data-icon="close"></span></button></div><div id="guide-body"></div></dialog>
+<noscript><p class="noscript">Enable JavaScript to browse the guides. You can also open the videos beside each task on the <a href="./#checklist">cleaning checklist</a>.</p></noscript>
+</body>
+</html>
