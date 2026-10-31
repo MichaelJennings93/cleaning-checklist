@@ -28,19 +28,8 @@ img { max-width: 100%; }
   --good: #16a34a;
   --sun: #ffe066;
   --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  color-scheme: light;
   --body: "Figtree", "Segoe UI", system-ui, -apple-system, sans-serif;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #0f151c; --surface: #17202a; --ink: #eef3f8; --muted: #9aaabb; --line: #26333f;
-    --every: #2fd1b8; --mon: #6aa5ff; --thu: #ff8a7f; --monthly: #ffbb3d; --bad: #ff6b6f; --good: #4ade80; --sun: #6b5a12;
-    color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #0f151c; --surface: #17202a; --ink: #eef3f8; --muted: #9aaabb; --line: #26333f;
-  --every: #2fd1b8; --mon: #6aa5ff; --thu: #ff8a7f; --monthly: #ffbb3d; --bad: #ff6b6f; --good: #4ade80; --sun: #6b5a12;
-  color-scheme: dark;
 }
 * { box-sizing: border-box; }
 body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.5; }
