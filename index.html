@@ -75,6 +75,40 @@ button { font: inherit; cursor: pointer; color: inherit; }
 .task.mon { border-left: 6px solid var(--mon); }
 .task.thu { border-left: 6px solid var(--thu); }
 .task.monthly { border-left: 6px solid var(--monthly); }
+/* Task card: tick + text on the left, photos on the right */
+.task { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: start; }
+.task > label { grid-column: 1; }
+.task > .thumbs { grid-column: 2; grid-row: 1; padding: 12px 12px 12px 0; display: grid; gap: 6px; }
+.task > .actions { grid-column: 1 / -1; }
+.thumbs .thumb { position: relative; width: 88px; height: 88px; padding: 0; border: 0; border-radius: 12px; overflow: hidden; background: var(--bg); }
+.thumbs.many { grid-template-columns: repeat(2, 56px); }
+.thumbs.many .thumb { width: 56px; height: 56px; border-radius: 10px; }
+.thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.thumb.bad { box-shadow: inset 0 0 0 3px var(--bad); }
+.thumb.bad img { opacity: 0.92; }
+.thumb .badge { position: absolute; left: 4px; bottom: 4px; font-size: 0.62rem; font-weight: 800; letter-spacing: 0.03em; text-transform: uppercase; padding: 2px 6px; border-radius: 6px; background: rgba(255, 255, 255, 0.92); color: var(--ink); }
+.thumb.bad .badge { background: var(--bad); color: #fff; }
+.thumbs.many .badge { display: none; }
+.thumbs.many .thumb.bad .badge { display: block; font-size: 0.55rem; padding: 1px 4px; left: 3px; bottom: 3px; }
+.thumb.todo { border: 2px dashed color-mix(in srgb, var(--good) 60%, var(--line)); background: color-mix(in srgb, var(--good) 7%, var(--bg)); display: grid; place-items: center; text-align: center; color: var(--good); font-weight: 800; font-size: 0.75rem; line-height: 1.15; }
+.thumb.todo small { font-weight: 600; font-size: 0.62rem; }
+.thumbs.many .thumb.todo { font-size: 0.58rem; }
+.thumbs.many .thumb.todo small { display: none; }
+.notok { display: block; font-size: 0.86rem; color: var(--bad); }
+.notok b { font-weight: 800; }
+.thumb .more { position: absolute; inset: 0; display: grid; place-items: center; background: rgba(21, 32, 44, 0.62); color: #fff; font-weight: 800; font-size: 1.1rem; }
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  .wrap .room { padding: 0; border: 0; border-radius: 0; background: none; }
+  .wrap .room.complete { background: none; }
+  .wrap .task label { padding: 12px; gap: 10px; grid-template-columns: 26px 1fr; }
+  .wrap .task input { width: 24px; height: 24px; }
+  .wrap .task > .thumbs { padding: 12px 10px 12px 0; }
+  .thumbs .thumb, .thumbs.many .thumb { width: 72px; height: 72px; border-radius: 12px; }
+  .thumbs.many { grid-template-columns: 72px; }
+  .thumbs.many .badge { display: block; }
+  .actions { padding: 0 12px 12px 48px; }
+}
 .gallery { display: grid; gap: 16px; max-height: 80vh; overflow-y: auto; }
 .gallery figure { margin: 0; display: grid; gap: 8px; }
 .gallery figure.bad img { outline: 4px solid var(--bad); }
@@ -243,7 +277,8 @@ const V = {
   robot: ["Robot vacuum care", "https://www.youtube.com/watch?v=_cDopg3MjnA"],
 };
 const P = (src, cap, bad) => ({ src: "img/" + src + ".jpg", cap, bad: !!bad });
-const DONE = (what) => ({ src: null, cap: "<b>Finished:</b> " + what + ". Photo coming soon." });
+const DONE = (what) => ({ src: null, cap: "<b>Perfect:</b> " + what + ". Photo to be inserted." });
+const PERFECT = { src: null, cap: "<b>Perfect:</b> photo to be inserted after the first clean." };
 
 const ROOMS = [
   { step: 2, title: "Robot and dishwasher", lead: "Do these two first.", videos: [V.robot],
@@ -517,17 +552,31 @@ function renderRooms() {
       const media = MEDIA[t.title] || {};
       const pics = (media.p || []).map((n) => n.startsWith("done:") ? Object.values(byName).find((p) => !p.src && p.cap.includes(n.slice(5))) : byName[n] || ALL_PHOTOS[n]).filter(Boolean);
       const vids = (media.v || []).map((k) => V[k]);
-      if (pics.length || vids.length) {
-        const bar = document.createElement("div");
-        bar.className = "actions";
-        if (pics.length) {
+      // every task that shows a "not acceptable" photo also gets a "perfect" slot, filled in after the first clean
+      if (pics.some((p) => p.bad) && !pics.some((p) => !p.src)) pics.push(PERFECT);
+      // "not OK" and "perfect" side by side first, then the reference photos
+      pics.sort((a, b) => (b.bad ? 2 : !b.src ? 1 : 0) - (a.bad ? 2 : !a.src ? 1 : 0));
+      const bads = pics.filter((p) => p.bad);
+      if (bads.length) li.querySelector(".txt").insertAdjacentHTML("beforeend", bads.map((p) => `<span class="notok">${p.cap}</span>`).join(""));
+      if (pics.length) {
+        const col = document.createElement("div");
+        col.className = "thumbs" + (pics.length > 2 ? " many" : "");
+        const shown = pics.length > 3 ? pics.slice(0, 3) : pics;
+        shown.forEach((p, i) => {
           const b = document.createElement("button");
           b.type = "button";
-          b.className = "act photo-btn";
-          b.innerHTML = `View photo${pics.length > 1 ? "s (" + pics.length + ")" : ""}${pics.some((p) => p.bad) ? ' <span class="warn-dot">· what not to do</span>' : ""}`;
-          b.addEventListener("click", () => openPhotos(pics));
-          bar.appendChild(b);
-        }
+          b.className = "thumb" + (p.bad ? " bad" : "") + (p.src ? "" : " todo");
+          b.setAttribute("aria-label", "Show photo bigger");
+          b.innerHTML = p.src ? `<img src="${p.src}" alt=""><span class="badge">${p.bad ? "Not OK" : "Photo"}</span>` : `<span class="slot-txt">Perfect<br><small>to be inserted</small></span>`;
+          if (i === 2 && pics.length > 3) b.insertAdjacentHTML("beforeend", `<span class="more">+${pics.length - 2}</span>`);
+          b.addEventListener("click", () => openPhotos(pics.slice(i).concat(pics.slice(0, i))));
+          col.appendChild(b);
+        });
+        li.appendChild(col);
+      }
+      if (vids.length) {
+        const bar = document.createElement("div");
+        bar.className = "actions";
         vids.forEach((v) => bar.insertAdjacentHTML("beforeend", `<a class="act video-btn" href="${v[1]}" target="_blank" rel="noopener">Watch: ${v[0]}</a>`));
         li.appendChild(bar);
       }
@@ -585,7 +634,7 @@ function summary() {
 function openPhotos(list) {
   $("lb-gallery").innerHTML = list.map((p) => p.src
     ? `<figure class="${p.bad ? "bad" : ""}"><img src="${p.src}" alt=""><figcaption>${p.cap}</figcaption></figure>`
-    : `<figure class="todo"><div class="slot">Finished photo coming soon</div><figcaption>${p.cap}</figcaption></figure>`).join("");
+    : `<figure class="todo"><div class="slot">Perfect photo: to be inserted</div><figcaption>${p.cap}</figcaption></figure>`).join("");
   $("lightbox").showModal();
   $("lb-gallery").scrollTop = 0;
 }
