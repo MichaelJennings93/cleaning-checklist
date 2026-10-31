@@ -36,7 +36,7 @@ const STAINFORCE_GUIDE = '<b>Your Shark StainForce HX101.</b><p>For small carpet
   '<p class="photo-credit">Product photo: <a href="https://www.sharkninja.com/shark-stainforce-cordless-portable-spot-spill-cleaner/HX101.html" target="_blank" rel="noopener">SharkNinja</a>.</p>';
 
 const ROOMS = [
-  { step: 2, title: "Robot and dishwasher", lead: "Do these two first.", videos: [V.robot],
+  { step: 2, title: "Robot and dishwasher", lead: "Start both as soon as you arrive. The Dreame robot handles most of the vacuuming and mopping, while a hot dishwasher cycle deep-cleans the dishwasher-safe heavy items. Let them work while you clean elsewhere—saving time and scrubbing by hand.", videos: [V.robot],
     photos: [P("l_robot_base", "Robot base station. Lift the lid to reach the two water tanks.")],
     tasks: [
       ["every", "Robot: empty, fill, start", "Empty and rinse the dirty water tank. Fill the clean water tank to MAX. Pick up cables and clothes from the floor. Press Start on the robot."],
