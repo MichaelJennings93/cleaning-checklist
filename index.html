@@ -43,17 +43,19 @@ p { margin: 0; }
 button { font: inherit; cursor: pointer; color: inherit; }
 :focus-visible { outline: 3px solid var(--mon); outline-offset: 2px; border-radius: 10px; }
 
-body { background: linear-gradient(180deg, #e8f7fb 0, #fdf6e8 340px, var(--bg) 620px) no-repeat, var(--bg); }
-.hero { position: relative; overflow: hidden; display: grid; gap: 10px; padding: 26px 22px 46px; border-radius: 28px; background: linear-gradient(160deg, #bfeaf3 0%, #e4f6f4 45%, #fff1d6 100%); }
-.hero::before { content: ""; position: absolute; width: 150px; height: 150px; border-radius: 50%; right: -36px; bottom: 6px; background: radial-gradient(circle, #ffd27a 0 55%, rgba(255, 210, 122, 0) 72%); opacity: 0.7; }
-.hero > * { position: relative; }
-.hero .palm { position: absolute; top: -6px; right: -18px; width: 150px; height: 150px; opacity: 0.9; }
-@media (max-width: 560px) { .hero .palm { width: 112px; height: 112px; right: -30px; top: -10px; opacity: 0.6; } }
-.hero .wave { position: absolute; left: 0; right: 0; bottom: -1px; width: 100%; height: 30px; }
-.hero .eyebrow { justify-self: start; font-size: 0.74rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #0b7f8c; background: rgba(255, 255, 255, 0.7); padding: 5px 10px; border-radius: 999px; }
-.hero h1 { max-width: 12ch; }
-.hero h1 .hl { background: linear-gradient(transparent 62%, var(--sun) 62%); padding: 0 4px; }
-.hero p { color: #34505c; max-width: 34ch; }
+body { background: linear-gradient(180deg, #eef8fa 0, var(--bg) 700px) no-repeat, var(--bg); }
+.hero { position: relative; overflow: hidden; display: grid; align-content: end; gap: 12px; min-height: 440px; padding: 24px 22px 26px; border-radius: 30px; color: #fff;
+  background: linear-gradient(180deg, rgba(8, 36, 52, 0.05) 0%, rgba(8, 36, 52, 0.25) 45%, rgba(6, 28, 42, 0.82) 100%), url("img/hero-sea.jpg") 30% center / cover no-repeat, #2b7d94;
+  box-shadow: 0 24px 60px -28px rgba(8, 50, 70, 0.55); }
+.hero .eyebrow { justify-self: start; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #fff; background: rgba(255, 255, 255, 0.18); border: 1px solid rgba(255, 255, 255, 0.35); padding: 6px 12px; border-radius: 999px; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.hero h1 { color: #fff; font-size: clamp(2.3rem, 10vw, 3.4rem); max-width: 11ch; text-shadow: 0 2px 18px rgba(0, 0, 0, 0.25); }
+.hero p { color: rgba(255, 255, 255, 0.9); max-width: 36ch; }
+.hero-cta { justify-self: start; margin-top: 4px; display: inline-flex; align-items: center; gap: 10px; padding: 14px 20px; border-radius: 999px; background: #fff; color: var(--ink); font-weight: 800; text-decoration: none; box-shadow: 0 10px 24px -12px rgba(0, 0, 0, 0.5); }
+.hero-cta::after { content: ""; width: 8px; height: 8px; border-right: 2.5px solid currentColor; border-bottom: 2.5px solid currentColor; transform: rotate(45deg) translate(-2px, -2px); }
+.view { position: relative; border-radius: 22px; overflow: hidden; min-height: 180px; display: grid; align-content: end; padding: 18px; color: #fff;
+  background: linear-gradient(180deg, rgba(6, 28, 42, 0) 30%, rgba(6, 28, 42, 0.75) 100%), url("img/beach-view.jpg") center 40% / cover no-repeat, #2b7d94; }
+.view b { font-family: var(--display); font-size: 1.35rem; }
+.view span { color: rgba(255, 255, 255, 0.88); font-size: 0.92rem; }
 
 /* Step headers */
 .step { display: flex; align-items: center; gap: 12px; padding-top: 10px; }
@@ -217,21 +219,13 @@ dialog button { margin-top: 10px; }
 <body>
 <div class="wrap">
   <header class="hero">
-    <svg class="palm" viewBox="0 0 200 200" aria-hidden="true">
-      <path d="M150 196 C146 150 140 112 126 78" stroke="#8a6a45" stroke-width="7" fill="none" stroke-linecap="round"/>
-      <path d="M126 78 C100 52 62 50 30 66 C62 62 96 70 126 78Z" fill="#2fae8f"/>
-      <path d="M126 78 C108 40 112 14 132 2 C124 30 124 54 126 78Z" fill="#1f9a7d"/>
-      <path d="M126 78 C150 46 182 40 200 52 C176 54 150 64 126 78Z" fill="#33b896"/>
-      <path d="M126 78 C96 76 66 96 52 126 C76 104 100 90 126 78Z" fill="#23a283"/>
-      <path d="M126 78 C156 76 184 96 196 124 C172 104 150 90 126 78Z" fill="#2aa98a"/>
-    </svg>
     <span class="eyebrow">Azure Residences · Palm Jumeirah</span>
-    <h1>Your <span class="hl">cleaning</span> checklist</h1>
+    <h1>Your cleaning checklist</h1>
     <p>Four simple steps. Pick today's date, start the machines, tick each task as you finish it, then send the summary to Michael.</p>
-    <svg class="wave" viewBox="0 0 400 30" preserveAspectRatio="none" aria-hidden="true"><path d="M0 18 C60 4 120 30 200 16 C280 2 340 26 400 12 V30 H0Z" fill="#ffffff"/></svg>
+    <a class="hero-cta" href="#start">Start today's clean</a>
   </header>
 
-  <div class="step"><div class="step-num">1</div><div><small>Step 1</small><h2>Choose today's date</h2></div></div>
+  <div class="step" id="start"><div class="step-num">1</div><div><small>Step 1</small><h2>Choose today's date</h2></div></div>
   <label class="picker" for="other-date">
     <span>Tap to open the calendar</span>
     <input type="date" id="other-date">
@@ -266,6 +260,7 @@ dialog button { margin-top: 10px; }
   <div id="step4"></div>
 
   <section class="finish" id="finish">
+    <div class="view"><b>Nearly done</b><span>Last step: send the summary, then enjoy the view.</span></div>
     <h2>Send it to Michael</h2>
     <p>Write anything broken, empty or running low. Then tap the green button.</p>
     <label for="notes">Notes for Michael
