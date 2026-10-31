@@ -35,6 +35,23 @@ class CloudClient extends CleanCore.SyncClient {
     if (!response.ok) throw Object.assign(new Error(result.error || "Could not save right now. Please try again."), { status: response.status, result });
     return result;
   }
+  async fileRequest(path, blob, retry = true) {
+    const token = await this.session();
+    const response = await this.fetcher(this.base + path, {
+      method: blob ? "POST" : "GET",
+      headers: { Authorization: "Bearer " + token, ...(blob ? { "Content-Type": "image/jpeg" } : {}) },
+      ...(blob ? { body: blob } : {}), signal: AbortSignal.timeout(30000)
+    });
+    if (response.status === 401 && retry) {
+      this.token = ""; this.store.set("azure-session", "");
+      return this.fileRequest(path, blob, false);
+    }
+    if (!response.ok) {
+      const result = await response.json().catch(() => ({}));
+      throw new Error(result.error || "Could not load or save the photo. Please try again.");
+    }
+    return response;
+  }
   connect(date) {
     this.closed = false; this.date = date; this.connected = false;
     // Import old device-only ticks without overwriting newer shared records.

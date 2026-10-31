@@ -1,0 +1,22 @@
+.cupboard-card{margin:24px 0;padding:22px;border:1px solid #dce4dc;border-radius:18px;background:#f7f9f5}
+.cupboard-card h3{margin:7px 0 8px;font-size:20px;letter-spacing:-.5px}
+.cupboard-card p{font-size:14px;line-height:1.65;color:#647269;margin:8px 0 16px}
+.cupboard-card .cupboard-date{font-size:12px;font-weight:600;color:#527363}
+.cupboard-actions{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}
+.cupboard-actions .button{min-height:46px;padding:11px 16px;font-size:13px;gap:8px}
+.cupboard-card .cupboard-status{font-size:12px;margin:12px 0 0}
+.cupboard-card .cupboard-hint{font-size:11px;margin:10px 0 0;color:#78837a}
+.cupboard-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}
+.cupboard-gallery:empty{display:none}
+.cupboard-gallery figure{margin:0;min-width:0}
+.cupboard-thumb{width:100%;aspect-ratio:1;display:grid;place-items:center;padding:0;border:1px solid #dce4dc;border-radius:12px;overflow:hidden;background:#eaf0e8;color:#526659;font:inherit;font-size:12px;cursor:pointer}
+.cupboard-thumb img{width:100%;height:100%;object-fit:cover}
+.cupboard-gallery figcaption{font-size:11px;color:#647269;padding-top:7px}
+.cupboard-remove{font:inherit;font-size:12px;background:none;border:0;color:#526659;min-height:44px;padding:8px 0;text-decoration:underline;cursor:pointer}
+.cupboard-upload{margin-top:10px;padding:12px;border-radius:10px;background:#fff4df;display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-size:12px}
+.cupboard-upload span{flex:1 1 150px}
+.cupboard-upload button{min-height:44px}
+.cupboard-lightbox{width:min(780px,calc(100% - 28px));max-height:90dvh;padding:16px}
+.cupboard-lightbox img{width:100%;height:auto;max-height:72dvh;object-fit:contain;display:block;margin-top:12px}
+#saved-report-photos{margin-bottom:24px}
+@media(max-width:600px){.cupboard-card{padding:18px}.cupboard-gallery{grid-template-columns:repeat(2,minmax(0,1fr))}.cupboard-actions{gap:8px}.cupboard-actions .button{flex:1;white-space:nowrap}.cupboard-card h3{font-size:19px}}

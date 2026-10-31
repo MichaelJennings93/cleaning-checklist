@@ -124,3 +124,8 @@ document.addEventListener('visibilitychange', () => { if (!document.hidden) refr
 window.addEventListener('pageshow', e => { if (e.persisted) refresh(); });
 setInterval(() => { if (!document.hidden) refresh(); }, 3000);
 refresh();
+CupboardPhotos.latest($('latest-cupboard'), transport);
+if (new URLSearchParams(location.search).get('request') === '1') {
+  openEditor();
+  history.replaceState(null, '', location.pathname + location.hash);
+}

@@ -26,6 +26,7 @@ The backend source is maintained separately in the sibling azure-cleaning-servic
 - Find help opens a Google Maps trade search for Palm Jumeirah. It does not book or contact a contractor.
 - Cleaning supplies (`supplies.html`) saves shared product/part requests, quantities, stock level and notes across visits. Coffee-machine filters and Shark StainForce spray are suggestions, not seeded requests. Needed / Ordered requests remain active; Restocked / No longer needed requests stay in History. Duplicate active item names are rejected atomically. Requests require a connection; failed edits remain in the open form.
 - Each newly saved visit contains an immutable snapshot of active supply requests and includes them in its WhatsApp summary. A separate Send list to Michael button refreshes the shared list before opening WhatsApp; the cleaner still taps Send. Existing visit-only supply drafts remain accessible until cleared, while new requests use the shared area.
+- Optional cupboard photos in Finish & report: take a photo or choose up to six per visit. Images are resized to 1800 px, exported as JPEG without original metadata, and saved to R2 through the authenticated service. Both phones refresh the list every five seconds. Pending or failed uploads block saving/changing dates until finished or discarded; keep the page open during uploads. Removing a visit photo does not change earlier saved reports. WhatsApp summaries link to the saved report and its photos; they do not attach image files automatically. Supplies shows the most recently uploaded visit’s photos.
 - The original ticks-YYYY-MM-DD localStorage keys are retained and migrated without overwriting newer shared records.
 
 ## Access
@@ -40,6 +41,7 @@ As requested, this is an unlisted, account-free link, not a private website. Any
 - app.js / styles.css: interface, photo guides, visit history, responsive layout.
 - repairs.html / repairs.css / repairs.js / repairs-client.js: shared home repair list and editing flow. `node tests/repairs.integration.cjs` exercises creation, shared updates, conflicts and completion against the local service only.
 - supplies.html / supplies.css / supplies.js: product and part requests, status history and WhatsApp sharing. `node tests/supplies.integration.cjs` verifies shared persistence, duplicate/race protection and report snapshots against loopback only.
+- cupboard-photos.js / cupboard-photos.css: visit uploads, shared galleries and saved report photos. `node tests/photos.integration.cjs` verifies uploads, validation, retry/concurrency safety, date isolation and immutable photo snapshots against loopback only. The backend requires the BUCKET R2 binding and cupboard_photos D1 migration.
 
 ## Photography
 

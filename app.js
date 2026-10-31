@@ -81,6 +81,8 @@ const sync = new CloudClient({
   }, online: () => navigator.onLine !== false
 });
 const selectedDate = () => C.fromKey(selected);
+const cupboard = new CupboardPhotos.Visit($("cupboard-photos"), sync);
+const savedPhotos = new CupboardPhotos.Gallery($("saved-report-photos"), sync);
 const allTasks = () => C.tasksFor(ROOMS, selectedDate());
 const currentTasks = () => allTasks().filter(t => t.ri === activeRoom);
 const availableRooms = () => ROOMS.map((_, i) => i);
@@ -93,6 +95,10 @@ function toast(message) {
 }
 function chooseDate(key) {
   if (!C.fromKey(key)) return;
+  if (key !== selected && (cupboard.hasPending() || cupboard.locked)) {
+    toast("Finish or discard the pending photo upload before changing visits.");
+    $("other-date").value = selected; return;
+  }
   selected = key;
   store.set("clean-date", key);
   ticks = store.get("ticks-" + key, {});
@@ -101,6 +107,7 @@ function chooseDate(key) {
   $("status").textContent = "";
   renderDates(); renderNavigation(); renderRoom(); renderSupplies();
   sync.connect(key);
+  cupboard.setDate(key);
 }
 function renderDates() {
   const d = selectedDate();
@@ -260,11 +267,13 @@ const whatsapp = text => "https://wa.me/971585915293?text=" + encodeURIComponent
 let saving = false, viewedReport = null;
 async function saveVisit(andSend) {
   if (saving) return;
+  if (cupboard.hasPending()) { $("status").textContent = "Please wait for the photos to finish uploading. Retry or discard any failed uploads, then save."; return; }
   saving = true;
+  cupboard.setLocked(true);
   $("save-visit").disabled = true; $("save-send").disabled = true;
   $("status").textContent = "Syncing both phones and saving this visit…";
   const date = selected, notes = $("notes").value, supplies = [...lowSupplies];
-  const fingerprint = JSON.stringify({ date, notes, supplies, ticks });
+  const fingerprint = JSON.stringify({ date, notes, supplies, ticks, photos: cupboard.photos.map(p => p.id) });
   let pending = store.get("report-request-" + date, {});
   if (pending.fingerprint !== fingerprint) {
     pending = { id: crypto.randomUUID(), fingerprint };
@@ -281,6 +290,7 @@ async function saveVisit(andSend) {
   } catch (error) {
     $("status").textContent = error.message || "Could not save. Your progress is still on this phone.";
   } finally {
+    cupboard.setLocked(false);
     saving = false; $("save-visit").disabled = false; $("save-send").disabled = false;
   }
 }
@@ -304,15 +314,19 @@ async function loadHistory() {
 }
 $("view-history").addEventListener("click", () => { $("history-dialog").showModal(); loadHistory(); });
 $("history-back").addEventListener("click", loadHistory);
+async function openSavedReport(id) {
+  viewedReport = await sync.request("/api/report?id=" + encodeURIComponent(id));
+  $("history-list").hidden = true; $("saved-report").hidden = false;
+  $("saved-report-text").textContent = viewedReport.summary + "\n\nFull checklist:\n" + viewedReport.tasks.map(t => (t.done ? "✓ " : "○ ") + t.room + " · " + t.title).join("\n");
+  $("saved-wa").href = whatsapp(viewedReport.summary);
+  savedPhotos.render(viewedReport.cupboardPhotos || []);
+}
 $("history-list").addEventListener("click", async e => {
   const button = e.target.closest("[data-report]");
   if (!button) return;
   button.disabled = true;
   try {
-    viewedReport = await sync.request("/api/report?id=" + encodeURIComponent(button.dataset.report));
-    $("history-list").hidden = true; $("saved-report").hidden = false;
-    $("saved-report-text").textContent = viewedReport.summary + "\n\nFull checklist:\n" + viewedReport.tasks.map(t => (t.done ? "✓ " : "○ ") + t.room + " · " + t.title).join("\n");
-    $("saved-wa").href = whatsapp(viewedReport.summary);
+    await openSavedReport(button.dataset.report);
   } catch { toast("Could not open this report. Please try again."); }
   finally { button.disabled = false; }
 });
@@ -350,3 +364,9 @@ window.addEventListener("pagehide", () => sync.close());
 window.addEventListener("pageshow", e => { if (e.persisted) sync.connect(selected); });
 chooseDate(selected);
 updateMobileNav();
+const linkedReport = new URLSearchParams(location.search).get("report");
+if (linkedReport) {
+  $("history-dialog").showModal();
+  $("history-list").textContent = "Opening saved visit…";
+  openSavedReport(linkedReport).catch(() => { $("history-list").textContent = "This report could not load. Close this window and try Saved visits, or reopen the link when connected."; });
+}

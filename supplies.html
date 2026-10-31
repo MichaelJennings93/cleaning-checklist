@@ -8,8 +8,8 @@
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;550;600;650;700&family=Manrope:wght@400;500;600;650;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="repairs.css"><link rel="stylesheet" href="supplies.css">
-<script src="core.js" defer></script><script src="cloud.js" defer></script><script src="repairs-client.js" defer></script><script src="supplies.js" defer></script>
+<link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="repairs.css"><link rel="stylesheet" href="supplies.css"><link rel="stylesheet" href="cupboard-photos.css">
+<script src="core.js" defer></script><script src="cloud.js?v=20261031-photos" defer></script><script src="repairs-client.js" defer></script><script src="cupboard-photos.js" defer></script><script src="supplies.js?v=20261031-photos" defer></script>
 </head>
 <body class="repairs-page supplies-page">
 <a class="skip-link" href="#requests">Skip to supply requests</a>
@@ -37,6 +37,7 @@
       <button class="quick-request" data-preset="coffee"><span class="quick-icon" data-icon="coffee"></span><span><strong>Coffee-machine filters</strong><small>Add the filter type or machine model.</small></span><span data-icon="plus"></span></button>
       <button class="quick-request" data-preset="stain"><span class="quick-icon" data-icon="spray"></span><span><strong>Shark StainForce spray</strong><small>Refill for the stain remover.</small></span><span data-icon="plus"></span></button>
     </div><details class="other-supplies"><summary>Other everyday supplies <span>+</span></summary><div class="supply-suggestions" id="supply-suggestions"></div></details></section>
+    <section class="cupboard-card" id="latest-cupboard" aria-labelledby="latest-cupboard-heading"><span class="eyebrow">A LOOK INSIDE</span><h3 id="latest-cupboard-heading">Latest cupboard photos</h3><p class="cupboard-status" role="status">Loading cupboard photos…</p><div class="cupboard-gallery"></div><button class="media-button cupboard-refresh" hidden>Retry loading photos</button><p><a href="./#cupboard-photos">Add photos at the end of your visit →</a></p></section>
     <section id="requests" aria-labelledby="requests-heading">
       <div class="repair-toolbar"><h2 id="requests-heading">The shared shopping list.</h2><label class="repair-search"><span data-icon="search"></span><input type="search" id="supply-search" placeholder="Search requests" aria-label="Search supply requests"></label></div>
       <div class="repair-filters supply-filters" role="group" aria-label="Filter supply requests"><button data-filter="active" aria-pressed="true">Needed & ordered</button><button data-filter="history" aria-pressed="false">History</button><button data-filter="all" aria-pressed="false">All requests</button></div>
