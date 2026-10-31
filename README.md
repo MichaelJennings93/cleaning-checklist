@@ -49,3 +49,15 @@ Added the owner's front/back GL-CB5 box photos on 31 October 2026, optimized for
 
 The operating steps follow Green Lion's GL-CB5 manual: https://www.greenlion.net/blog/green-lion-guides-183/gncb5grilbrbk-2898. The household's existing gas-off/cold-grill instruction is retained. The three-minute video is Grillion's official tutorial for a similar rotary brush, explicitly labelled as a different model: https://www.youtube.com/watch?v=9ycJS4dVpus. The note beside the video directs cleaners to this guide and clarifies cold grill, plain water and hand-rinsing; the video differs on these points. Task order and IDs remain unchanged to preserve saved ticks.
 
+## Shark StainForce HX101 guide
+
+Added 31 October 2026 from the owner's Amazon listing (ASIN B0FLDZGB5D). A visible equipment card appears under Living room → Sofa and Shared areas → Floors touch-up. It opens the product photo with use, fabric checks, self-rinse and aftercare instructions. These supplement existing tasks without changing IDs, schedules, task counts or stored visits.
+
+- Product and photo source: https://www.sharkninja.com/shark-stainforce-cordless-portable-spot-spill-cleaner/HX101.html
+- Manufacturer image: https://assets.sharkninja.com/image/upload/f_auto/q_auto/SharkNinja-NA/HX101_01.jpg. Served locally as `img/shark-stainforce.jpg`, optimized to 1000 × 1000 for mobile, with source credit in the guide.
+- Official usage video, Shark Home: https://www.youtube.com/watch?v=uecQ3ylcVos
+- Official maintenance video, Shark Home UK (2:35): https://www.youtube.com/watch?v=-WyoxLZ8NF8
+- Shark's StainForce HX100-series manual (UK edition, manufacturer-distributed PDF): https://media.flixcar.com/webp/synd-asset/Shark-390018373-ViewProductAttachment-OpenFile-LocaleId--DirectoryPath--FileName-HX100UKTplusIB.pdf
+
+The care video/manual cover the StainForce product family; regional accessories may differ. No region-specific voltage, charging time or warranty claims are used. The household Eight Sleep restriction is retained. Product photo is a manufacturer image, not an owner photograph or an assertion of a free image licence.
+

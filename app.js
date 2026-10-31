@@ -126,7 +126,8 @@ function mediaFor(task) {
   return {
     photos: (media.p || []).filter(key => !key.startsWith("done:")).map(key => ALL_PHOTOS[key]).filter(Boolean),
     videos: (media.v || []).map(key => V[key]).filter(Boolean),
-    note: media.note || ""
+    note: media.note || "",
+    tool: media.tool && ALL_PHOTOS[media.tool.photo] ? { ...media.tool, image: ALL_PHOTOS[media.tool.photo] } : null
   };
 }
 function renderRoom() {
@@ -139,7 +140,8 @@ function renderRoom() {
       const media = mediaFor(t);
       return '<li class="task" data-task="' + t.id + '"><label class="task-main" for="t-' + t.id + '"><input type="checkbox" id="t-' + t.id + '" data-tick="' + t.id + '" aria-label="' + safe(t.title) + '" aria-describedby="desc-' + t.id + '"><span class="task-copy"><span class="task-title"><strong>' + safe(t.title) + '</strong>' + (t.when !== "every" ? '<span class="tag ' + t.when + '">' + LABEL[t.when] + '</span>' : "") + '</span><span class="task-description" id="desc-' + t.id + '">' + safe(t.description) + '</span></span></label>' +
         media.photos.filter(p => p.bad).map(p => '<p class="notok">' + p.cap + '</p>').join("") +
-        (media.photos.length || media.videos.length ? '<div class="task-media">' + (media.photos.length ? '<button class="media-button" data-photos="' + t.id + '">' + icon("photo") + 'Photo guide <span>· ' + media.photos.length + '</span></button>' : "") +
+        (media.tool ? '<button class="tool-preview" data-photos="' + t.id + '" aria-label="Open ' + safe(media.tool.name) + ' photo and care guide"><img src="' + safe(media.tool.image.src) + '" alt="' + safe(media.tool.image.alt || media.tool.name) + '" width="80" height="80" loading="lazy"><span><small>YOUR CLEANING KIT</small><strong>' + safe(media.tool.name) + '</strong><span>Photo, instructions &amp; aftercare ' + icon("arrow") + '</span></span></button>' : "") +
+        (media.photos.length || media.videos.length ? '<div class="task-media">' + (media.photos.length && !media.tool ? '<button class="media-button" data-photos="' + t.id + '">' + icon("photo") + 'Photo guide <span>· ' + media.photos.length + '</span></button>' : "") +
         media.videos.map(v => '<a class="media-button" href="' + v[1] + '" target="_blank" rel="noopener">' + icon("play") + safe(v[0]) + '</a>').join("") + '</div>' : "") +
         (media.note ? '<p class="media-note">' + safe(media.note) + '</p>' : "") + '</li>';
     }).join("") + '</ul><div class="empty-state" hidden>' + icon("check-circle") + '<h3>This area is all taken care of.</h3><p>Move on to the next room, or turn off “Hide completed” to review.</p></div></section>';

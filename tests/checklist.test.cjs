@@ -21,7 +21,8 @@ test("guide additions preserve original task IDs, schedules, safety notes and me
     assert.equal(json(rooms[ri].warn), json(room.warn));
     room.tasks.forEach((task, ti) => {
       assert.equal(json(rooms[ri].tasks[ti].slice(0, 2)), json(task.slice(0, 2)), `stable task ${ri}-${ti}`);
-      if (task[1] !== "Grill: clean and polish") assert.equal(rooms[ri].tasks[ti][2], task[2]);
+      if (!["Grill: clean and polish", "Sofa", "Floors touch-up"].includes(task[1])) assert.equal(rooms[ri].tasks[ti][2], task[2]);
+      if (["Sofa", "Floors touch-up"].includes(task[1])) assert(rooms[ri].tasks[ti][2].startsWith(task[2]), `retain original instructions for ${task[1]}`);
     });
   });
   for (const [key, photo] of Object.entries(baseline.photos)) assert.equal(json(photos[key]), json(photo));

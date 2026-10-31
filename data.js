@@ -7,6 +7,8 @@ const V = {
   dyson: ["Dyson vacuum care", "https://www.youtube.com/watch?v=Gj7hvyrVbZw"],
   robot: ["Robot vacuum care", "https://www.youtube.com/watch?v=_cDopg3MjnA"],
   grillBrush: ["Brush demo · 3 min (similar model)", "https://www.youtube.com/watch?v=9ycJS4dVpus"],
+  stainforceUse: ["Shark · how to use", "https://www.youtube.com/watch?v=uecQ3ylcVos"],
+  stainforceCare: ["Shark · clean & care · 2:35", "https://www.youtube.com/watch?v=-WyoxLZ8NF8"],
 };
 const P = (src, cap, bad) => ({ src: "img/" + src + ".jpg", cap, bad: !!bad });
 const DONE = (what) => ({ src: null, cap: "<b>Perfect:</b> " + what + ". Photo to be inserted." });
@@ -19,6 +21,19 @@ const GRILL_BRUSH_GUIDE = '<b>Your Green Lion GL-CB5 electric grill brush.</b><o
   '<li><b>Put away.</b> Hand-rinse the brush, wipe the body and let everything dry. Keep the charging port dry. Recharge with a 5V supply and store in its case.</li></ol>' +
   '<p>Keep this brush away from the tabletop, burner openings, coated surfaces and polished exterior steel.</p>' +
   '<a class="guide-source" href="https://www.greenlion.net/blog/green-lion-guides-183/gncb5grilbrbk-2898" target="_blank" rel="noopener">Green Lion instructions ↗</a>';
+
+const STAINFORCE_GUIDE = '<b>Your Shark StainForce HX101.</b><p>For small carpet, rug and upholstery stains. Use the separate Shark StainForce spray bottle; no mixing or measuring.</p>' +
+  '<b>Before you start</b><p>Check the fabric label: W or WS only. Skip S, X, dry-clean-only or unlabelled delicate rugs. Test a hidden patch first. Unsure? Ask Michael. Never use on hard floors or Eight Sleep covers.</p>' +
+  '<b>Remove a stain</b><ol class="guide-steps">' +
+  '<li><b>Prepare.</b> Charge, then unplug. Check the tank, tool and filters are fitted. Suction up wet spills first; vacuum loose dry dirt with the Dyson.</li>' +
+  '<li><b>Spray, scrub, extract.</b> Apply StainForce solution generously from about 5 cm away. Let it soak a few minutes; spray again. Scrub with the bristles flat. Tilt the handle up, press down and pull slowly backwards to extract. Leave the fabric to dry.</li></ol>' +
+  '<b>After every use</b><ol class="guide-steps">' +
+  '<li><b>Self-rinse.</b> Empty the dirty tank. Fill the removable caddy cup with clean water to MAX. Fit the stain tool, place it in the cup and switch on to draw water through. Remove, switch off and empty again.</li>' +
+  '<li><b>Clean and dry.</b> Unplug before dismantling. Follow the care video to remove the separator and wash the empty tank. Rinse the tool and filters; water only for the foam filter. Air-dry fully, refit, store indoors and recharge with the supplied charger.</li></ol>' +
+  '<p>Keep the handle and charging port dry. No bleach, vinegar or other cleaners in the spray bottle. Never store dirty water.</p>' +
+  '<p><a class="guide-source" href="' + V.stainforceUse[1] + '" target="_blank" rel="noopener">Watch: how to use ↗</a><br><a class="guide-source" href="' + V.stainforceCare[1] + '" target="_blank" rel="noopener">Watch: clean &amp; care (2:35) ↗</a></p>' +
+  '<a class="guide-source" href="https://media.flixcar.com/webp/synd-asset/Shark-390018373-ViewProductAttachment-OpenFile-LocaleId--DirectoryPath--FileName-HX100UKTplusIB.pdf" target="_blank" rel="noopener">Shark StainForce series manual ↗</a>' +
+  '<p class="photo-credit">Product photo: <a href="https://www.sharkninja.com/shark-stainforce-cordless-portable-spot-spill-cleaner/HX101.html" target="_blank" rel="noopener">SharkNinja</a>.</p>';
 
 const ROOMS = [
   { step: 2, title: "Robot and dishwasher", lead: "Do these two first.", videos: [V.robot],
@@ -75,10 +90,10 @@ const ROOMS = [
       ["monthly", "Lampshades", "Dust the lampshades and light fittings."],
     ] },
   { step: 3, title: "Living room", lead: "Sofa tidy, blankets folded away, screens dust-free, projector not moved.",
-    photos: [P("l_sofa", "<b>Not acceptable:</b> blankets left out on the sofa.", 1), DONE("tidy sofa"), P("l_screen", "The projector screen."), P("l_projector", "The projector on the TV cabinet. Do not move it."), P("l_proj_lens", "The lens is the black glass strip on top. Dry cloth only.")],
+    photos: [{ ...P("shark-stainforce", STAINFORCE_GUIDE), alt: "Shark StainForce HX101 cordless spot cleaner and spray bottle in their carry caddy." }, P("l_sofa", "<b>Not acceptable:</b> blankets left out on the sofa.", 1), DONE("tidy sofa"), P("l_screen", "The projector screen."), P("l_projector", "The projector on the TV cabinet. Do not move it."), P("l_proj_lens", "The lens is the black glass strip on top. Dry cloth only.")],
     warn: ["Do not move the projector. Even a small push moves the picture. If it moves, put it back on its markers, switch it on and check the picture fits the screen."],
     tasks: [
-      ["every", "Sofa", "Plump and straighten every cushion. Fold the blankets neatly and put them away."],
+      ["every", "Sofa", "Plump and straighten every cushion. Fold the blankets neatly and put them away. Check for stains; use the Shark StainForce on suitable fabric if needed. Open the guide first, then clean the tool after use."],
       ["every", "TV and projector", "Wipe the TV screen with a dry microfibre cloth. With the projector off and cool, dust it and polish the black lens strip on top. No sprays."],
       ["mon", "Vacuum the sofa", "Vacuum the sofa, including under the cushions."],
     ] },
@@ -107,7 +122,7 @@ const ROOMS = [
       ["every", "Dust everything", "All surfaces, shelves, skirting boards, door handles and light switches. Top to bottom."],
       ["every", "Plants", "Push a finger 3 cm into the soil. Water only if it is dry. Scrape off any white mould. Empty saucers and wipe up spills."],
       ["every", "Aroma diffusers (4)", "Kitchen, living room, bathroom, bedroom. Top up oil, change batteries if needed, make sure all 4 are on."],
-      ["every", "Floors touch-up", "After the robot, use the Dyson on edges, corners and under furniture. Quick spot-mop."],
+      ["every", "Floors touch-up", "After the robot, use the Dyson on edges, corners and under furniture. Quick spot-mop. Check carpets and rugs for stains; use the Shark StainForce on suitable fabric if needed. Open the guide first, then clean the tool after use."],
       ["every", "Rubbish", "Empty every bin in the apartment and take all the bags out."],
       ["mon", "Under the floor plants", "Lift each plant standing on the tiles. Mop and dry underneath. Wipe the saucer and put the plant back on it. Tell Michael about any water marks."],
       ["thu", "Windows", "Clean all bedroom and living room windows on both sides, streak-free, plus frames, tracks and sills."],
@@ -163,7 +178,7 @@ const MEDIA = {
   "Eight Sleep hubs": { p: ["r_hubs"], v: ["sleep"] },
   "Change the bedding": { p: ["r_bed_unmade", "done:bed made"], v: ["sleep"] },
   "Pillows cooling side up": { p: ["r_pillow_hose"], v: ["sleep"] },
-  "Sofa": { p: ["l_sofa", "done:tidy sofa"] },
+  "Sofa": { p: ["shark-stainforce", "l_sofa", "done:tidy sofa"], v: ["stainforceUse", "stainforceCare"], tool: { photo: "shark-stainforce", name: "Shark StainForce HX101" } },
   "TV and projector": { p: ["l_screen", "l_projector", "l_proj_lens"] },
   "Grill: gas off": { p: ["b_gas"] },
   "Grill: clean and polish": { p: ["b_grill_brush", "b_grill_brush_box", "b_grill_burner", "b_grease_tray", "done:burner and drip tray"], v: ["grillBrush"], note: "The video demonstrates a similar Grillion brush. For our Green Lion: grill cold, plain water in the tank, and hand-rinse the brush. Follow Photo guide for setup." },
@@ -176,6 +191,7 @@ const MEDIA = {
   "Ice bath": { p: ["b_ice_closed", "b_ice_net", "b_ice_debris", "b_ice_skim"] },
   "Balcony glass": { p: ["b_balustrade"] },
   "Entrance": { p: ["l_entrance", "l_mat_out", "l_mirror"] },
+  "Floors touch-up": { p: ["shark-stainforce"], v: ["stainforceUse", "stainforceCare"], tool: { photo: "shark-stainforce", name: "Shark StainForce HX101" } },
   "Plants": { p: ["l_floor_plant"] },
   "Under the floor plants": { p: ["l_floor_plant"] },
   "Aroma diffusers (4)": { p: ["diffuser-kitchen-tower", "diffuser-aroma-box", "diffuser-bathroom", "diffuser-silver-tower"] },
