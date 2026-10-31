@@ -52,6 +52,7 @@ The coastal hero is Palm Jumeirah area photography, not a photograph of the Azur
 - Free under the Unsplash License: https://unsplash.com/license
 - File: img/palm-coast.jpg. Credit also appears in the site footer.
 - The apartment and sea-view photographs were retained from the original website.
+- The sauna overview was replaced on 31 October 2026 with the owner's real NAS photo `Photos/WhatsApp/e7dfb818-9846-4026-980d-54bef930056a.JPG`, showing the interior, stone heater and sea view without a visible photographer reflection. Served unchanged as `img/b_sauna_seaview.jpg` (900 × 1600, 235 KB, no EXIF metadata). The previous reflected exterior photo was removed from the live assets.
 
 ## Green Lion grill brush guide
 

@@ -25,10 +25,17 @@ test("guide additions preserve original task IDs, schedules, safety notes and me
       if (["Sofa", "Floors touch-up"].includes(task[1])) assert(rooms[ri].tasks[ti][2].startsWith(task[2]), `retain original instructions for ${task[1]}`);
     });
   });
-  for (const [key, photo] of Object.entries(baseline.photos)) assert.equal(json(photos[key]), json(photo));
+  // The owner replaced the reflected exterior shot with a real NAS interior photo.
+  const replacedPhotos = { b_sauna_ext: "b_sauna_seaview" };
+  for (const [key, photo] of Object.entries(baseline.photos)) {
+    if (replacedPhotos[key]) {
+      assert(photos[replacedPhotos[key]]);
+      assert(!photos[key]);
+    } else assert.equal(json(photos[key]), json(photo));
+  }
   for (const [key, video] of Object.entries(baseline.videos)) assert.equal(json(videos[key]), json(video));
   for (const [title, guide] of Object.entries(baseline.media)) {
-    for (const key of guide.p || []) assert(media[title].p.includes(key), `${title}: ${key}`);
+    for (const key of guide.p || []) assert(media[title].p.includes(replacedPhotos[key] || key), `${title}: ${key}`);
     for (const key of guide.v || []) assert(media[title].v.includes(key), `${title}: ${key}`);
   }
 });
