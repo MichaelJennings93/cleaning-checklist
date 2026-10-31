@@ -1,0 +1,1 @@
+{"name":"azure-cleaning-companion","private":true,"scripts":{"test":"node --test tests/*.test.cjs","start":"python -m http.server 4173 --bind 127.0.0.1"}}

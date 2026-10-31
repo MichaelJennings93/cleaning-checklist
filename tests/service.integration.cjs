@@ -1,0 +1,37 @@
+const assert = require("node:assert/strict");
+const { randomUUID } = require("node:crypto");
+const base = process.env.AZURE_TEST_API || "http://127.0.0.1:5173";
+if (!base.startsWith("http://127.0.0.1:")) throw new Error("Integration tests only run against the local preview database.");
+const origin = "http://127.0.0.1:4173";
+(async () => {
+  const session = await fetch(base + "/api/session", { headers: { Origin: origin } });
+  assert.equal(session.status, 200);
+  const { token } = await session.json();
+  const api = async (route, body) => {
+    const response = await fetch(base + route, { method: body ? "POST" : "GET", headers: { Origin: origin, Authorization: "Bearer " + token, "Content-Type": "application/json" }, ...(body ? { body: JSON.stringify(body) } : {}) });
+    return { response, data: await response.json() };
+  };
+  assert.equal((await fetch(base + "/api/visit?date=2099-11-02")).status, 401);
+  assert.equal((await fetch(base + "/api/session", { headers: { Origin: "https://unrelated.example" } })).status, 403);
+  const date = "2099-11-02", t = Date.now();
+  let result = await api("/api/ticks", { date, changes: [{ id: "0-0", on: true, t }, { id: "0-1", on: true, t }] });
+  assert.equal(result.response.status, 200); assert.equal(result.data.ticks.find(x => x.id === "0-0").on, true);
+  await api("/api/ticks", { date, changes: [{ id: "0-0", on: false, t: t - 1 }] });
+  result = await api("/api/visit?date=" + date);
+  assert.equal(result.data.ticks.find(x => x.id === "0-0").on, true);
+  assert.equal((await api("/api/ticks", { date, changes: [{ id: "bad", on: true, t }] })).response.status, 400);
+  const id = randomUUID();
+  const saved = await api("/api/report", { id, date, notes: "Local QA report", supplies: ["Bin bags"] });
+  assert.equal(saved.response.status, 201); assert(saved.data.tasks.length > 40);
+  assert(saved.data.tasks.find(x => x.id === "0-0").done);
+  const repeated = await api("/api/report", { id, date, notes: "Must not overwrite", supplies: [] });
+  assert.equal(repeated.data.notes, "Local QA report");
+  await api("/api/ticks", { date, changes: [{ id: "0-0", on: false, t: t + 1 }] });
+  const retrieved = await api("/api/report?id=" + id);
+  assert(retrieved.data.tasks.find(x => x.id === "0-0").done, "Saved snapshot must not change when live ticks change");
+  const history = await api("/api/history");
+  assert(history.data.reports.some(r => r.id === id));
+  const other = await api("/api/visit?date=2099-11-03");
+  assert(!other.data.ticks.some(x => x.id === "0-0"));
+  console.log("PASS: authenticated sessions, origin checks, durable ticks, stale update protection, validation, idempotent report saves, immutable history, and date isolation.");
+})().catch(error => { console.error(error); process.exitCode = 1; });
