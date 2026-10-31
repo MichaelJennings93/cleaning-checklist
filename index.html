@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Cleaning Checklist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+:root { color-scheme: light; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+body { margin: 0; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+
+/* Layout: one bright phone-first column; sticky progress bar; rooms in walking order; photo strips scroll sideways */
+:root {
+  --bg: #ffffff;
+  --surface: #f4f8fc;
+  --ink: #15202c;
+  --muted: #5a6a7c;
+  --line: #e2e9f1;
+  --every: #10b39d;
+  --mon: #3b82f6;
+  --thu: #ff6b5e;
+  --monthly: #f2a20c;
+  --bad: #e5484d;
+  --good: #16a34a;
+  --sun: #ffe066;
+  --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --body: "Figtree", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f151c; --surface: #17202a; --ink: #eef3f8; --muted: #9aaabb; --line: #26333f;
+    --every: #2fd1b8; --mon: #6aa5ff; --thu: #ff8a7f; --monthly: #ffbb3d; --bad: #ff6b6f; --good: #4ade80; --sun: #6b5a12;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f151c; --surface: #17202a; --ink: #eef3f8; --muted: #9aaabb; --line: #26333f;
+  --every: #2fd1b8; --mon: #6aa5ff; --thu: #ff8a7f; --monthly: #ffbb3d; --bad: #ff6b6f; --good: #4ade80; --sun: #6b5a12;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.5; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.wrap { max-width: 760px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 20px 80px; display: grid; gap: 28px; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0; line-height: 1.1; }
+h1 { font-size: clamp(2rem, 7vw, 2.9rem); font-weight: 800; letter-spacing: -0.02em; }
+h2 { font-size: 1.55rem; font-weight: 800; letter-spacing: -0.01em; }
+h3 { font-size: 1.05rem; font-weight: 600; }
+p { margin: 0; }
+a { color: var(--mon); }
+button { font: inherit; cursor: pointer; }
+:focus-visible { outline: 3px solid var(--mon); outline-offset: 2px; border-radius: 8px; }
+
+/* Hero */
+.hero { display: grid; gap: 14px; padding-top: 8px; }
+.hello { font-weight: 700; color: var(--every); text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.8rem; }
+.hero h1 .hl { background: linear-gradient(transparent 62%, var(--sun) 62%); padding: 0 4px; }
+.hero p { color: var(--muted); max-width: 60ch; }
+
+/* Day picker */
+.days { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.day { border: 2px solid var(--line); background: var(--bg); color: var(--ink); border-radius: 18px; padding: 14px; text-align: left; display: grid; gap: 2px; }
+.day b { font-family: var(--display); font-size: 1.25rem; }
+.day span { color: var(--muted); font-size: 0.88rem; }
+.day[aria-pressed="true"].mon { border-color: var(--mon); background: color-mix(in srgb, var(--mon) 10%, var(--bg)); }
+.day[aria-pressed="true"].thu { border-color: var(--thu); background: color-mix(in srgb, var(--thu) 10%, var(--bg)); }
+.monthly-toggle { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: 14px; background: color-mix(in srgb, var(--monthly) 12%, var(--bg)); font-weight: 600; }
+.monthly-toggle input { width: 22px; height: 22px; accent-color: var(--monthly); }
+.monthly-toggle small { display: block; font-weight: 400; color: var(--muted); }
+
+/* Legend */
+.legend { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { display: inline-flex; align-items: center; gap: 6px; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; white-space: nowrap; }
+.chip::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.chip.every { color: var(--every); background: color-mix(in srgb, var(--every) 13%, transparent); }
+.chip.mon { color: var(--mon); background: color-mix(in srgb, var(--mon) 13%, transparent); }
+.chip.thu { color: var(--thu); background: color-mix(in srgb, var(--thu) 13%, transparent); }
+.chip.monthly { color: var(--monthly); background: color-mix(in srgb, var(--monthly) 15%, transparent); }
+
+/* Sticky progress */
+.progress { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); padding-block: 10px; border-bottom: 1px solid var(--line); display: grid; gap: 6px; }
+.progress-row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-weight: 700; }
+.progress-row span:last-child { color: var(--muted); font-weight: 500; font-variant-numeric: tabular-nums; }
+.bar { height: 10px; border-radius: 999px; background: var(--surface); overflow: hidden; }
+.bar i { display: block; height: 100%; width: 0; border-radius: inherit; background: linear-gradient(90deg, var(--every), var(--mon)); transition: width 0.3s; }
+
+/* Tips */
+.tips { background: var(--surface); border-radius: 22px; padding: 20px; display: grid; gap: 12px; }
+.tips ol { margin: 0; padding-left: 1.3em; display: grid; gap: 8px; }
+.tips li::marker { font-weight: 800; color: var(--every); }
+
+/* Rooms */
+.room { display: grid; gap: 14px; scroll-margin-top: 80px; }
+.room-head { display: flex; align-items: center; gap: 12px; }
+.room-num { flex: none; width: 38px; height: 38px; border-radius: 12px; display: grid; place-items: center; font-family: var(--display); font-weight: 800; color: #fff; background: var(--every); }
+.room-head p { color: var(--muted); font-size: 0.92rem; }
+.room-head > div { min-width: 0; }
+.videos { display: flex; flex-wrap: wrap; gap: 8px; }
+.videos a { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; font-weight: 600; font-size: 0.9rem; color: var(--ink); background: var(--surface); border: 1px solid var(--line); padding: 8px 12px; border-radius: 999px; }
+.videos a::before { content: ""; width: 0; height: 0; border-left: 9px solid var(--thu); border-top: 6px solid transparent; border-bottom: 6px solid transparent; }
+
+.photos { display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 6px; }
+.photo { flex: none; width: 168px; scroll-snap-align: start; display: grid; gap: 6px; background: none; border: 0; padding: 0; text-align: left; color: var(--ink); }
+.photo img { width: 168px; height: 240px; object-fit: cover; border-radius: 16px; border: 3px solid transparent; background: var(--surface); }
+.photo.bad img { border-color: var(--bad); }
+.photo small { font-size: 0.8rem; color: var(--muted); line-height: 1.35; }
+.photo.bad small b { color: var(--bad); }
+.photo.todo { cursor: default; }
+.photo .slot { width: 168px; height: 240px; border-radius: 16px; border: 3px dashed color-mix(in srgb, var(--good) 55%, var(--line)); background: color-mix(in srgb, var(--good) 7%, var(--bg)); display: grid; place-items: center; text-align: center; padding: 16px; font-weight: 700; color: var(--good); }
+.photo.todo small b { color: var(--good); }
+
+.tasks { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.task label { display: grid; grid-template-columns: 28px 1fr; gap: 12px; align-items: start; padding: 14px; border-radius: 16px; background: var(--surface); border: 1px solid var(--line); cursor: pointer; }
+.task input { width: 24px; height: 24px; margin: 2px 0 0; accent-color: var(--every); }
+.task .txt { display: grid; gap: 4px; min-width: 0; }
+.task .top { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; }
+.task strong { font-weight: 700; }
+.task .d { color: var(--muted); font-size: 0.93rem; }
+.task input:checked + .txt strong { text-decoration: line-through; color: var(--muted); }
+.task:has(input:checked) label { background: color-mix(in srgb, var(--every) 9%, var(--bg)); border-color: color-mix(in srgb, var(--every) 35%, var(--line)); }
+.task.mon label { border-left: 5px solid var(--mon); }
+.task.thu label { border-left: 5px solid var(--thu); }
+.task.monthly label { border-left: 5px solid var(--monthly); }
+
+.warn { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start; padding: 12px 14px; border-radius: 14px; background: color-mix(in srgb, var(--bad) 9%, var(--bg)); border: 1px solid color-mix(in srgb, var(--bad) 30%, transparent); font-size: 0.93rem; }
+.warn::before { content: "!"; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; background: var(--bad); color: #fff; font-weight: 800; font-size: 0.85rem; }
+
+/* Finish */
+.finish { background: var(--surface); border-radius: 22px; padding: 20px; display: grid; gap: 14px; }
+.finish label { font-weight: 600; display: grid; gap: 6px; }
+.finish textarea { width: 100%; min-height: 90px; border-radius: 12px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); padding: 10px; font: inherit; }
+.btns { display: flex; flex-wrap: wrap; gap: 10px; }
+.btn { border: 0; border-radius: 999px; padding: 12px 18px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
+.btn.primary { background: var(--every); color: #fff; }
+.btn.ghost { background: var(--bg); color: var(--ink); border: 1px solid var(--line); }
+.status { font-size: 0.9rem; color: var(--muted); min-height: 1.4em; }
+pre.summary { white-space: pre-wrap; background: var(--bg); border: 1px solid var(--line); border-radius: 12px; padding: 12px; font-size: 0.85rem; margin: 0; max-height: 260px; overflow: auto; }
+
+.supplies { display: flex; flex-wrap: wrap; gap: 6px; }
+.supplies span { font-size: 0.85rem; padding: 5px 10px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); }
+
+/* Lightbox */
+dialog { border: 0; padding: 0; background: transparent; max-width: min(92vw, 520px); }
+dialog::backdrop { background: rgba(10, 15, 20, 0.82); }
+dialog img { width: 100%; border-radius: 18px; display: block; }
+dialog p { color: #fff; margin-top: 10px; font-size: 0.95rem; }
+dialog button { margin-top: 10px; }
+
+@media (prefers-reduced-motion: reduce) { .bar i { transition: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="hello" id="greeting">Hello, welcome!</div>
+    <h1>Today's <span class="hl">cleaning</span> checklist</h1>
+    <p>Pick today's day below. The list then shows exactly what to do today. Tick each task as you finish it, look at the photos for what good and bad look like, and send the summary to Michael before you leave.</p>
+  </header>
+
+  <section class="days" aria-label="Which day is it?">
+    <button class="day mon" id="day-mon" type="button" aria-pressed="false"><b>Monday</b><span>Every-visit tasks + Monday extras</span></button>
+    <button class="day thu" id="day-thu" type="button" aria-pressed="false"><b>Thursday</b><span>Every-visit tasks + Thursday extras</span></button>
+  </section>
+
+  <label class="monthly-toggle" for="monthly" id="monthly-wrap">
+    <input type="checkbox" id="monthly">
+    <span>Include monthly tasks<small>Only on the first Monday of the month</small></span>
+  </label>
+
+  <div class="legend" aria-label="What the colours mean">
+    <span class="chip every">Every visit</span>
+    <span class="chip mon">Monday only</span>
+    <span class="chip thu">Thursday only</span>
+    <span class="chip monthly">Once a month</span>
+  </div>
+
+  <div class="progress" aria-live="polite">
+    <div class="progress-row"><span id="prog-label">Let's go!</span><span id="prog-count">0 of 0</span></div>
+    <div class="bar"><i id="prog-bar"></i></div>
+  </div>
+
+  <section class="tips">
+    <h2>Work smart: start the machines first</h2>
+    <p>In the first 10 minutes, get the machines working. They do the hard work while you clean.</p>
+    <ol>
+      <li><b>Start the robot.</b> Empty its dirty water, fill the clean water, pick up cables and clothes from the floor, then press Start. It vacuums and mops everywhere. Never mop by hand.</li>
+      <li><b>Load the dishwasher.</b> Empty it, then load the big items: grill grates, plancha plate, grease tray, air fryer drawers and plates, coffee drip tray.</li>
+      <li><b>Start the laundry 2 hours before you finish.</b> Wash and dry takes up to 2 hours, and it must be folded before you leave.</li>
+      <li><b>Work top to bottom.</b> Dust high surfaces first. Floors last.</li>
+      <li><b>Split the work.</b> One person: kitchen and bathrooms. The other: bedroom, living room and balcony.</li>
+    </ol>
+  </section>
+
+  <main id="rooms" class="wrap" style="padding:0; gap:36px"></main>
+
+  <section class="finish" id="finish">
+    <h2>All done? Send it to Michael</h2>
+    <p>Check the list above is all ticked. Write anything that is broken, empty or running low, then send the summary.</p>
+    <label for="notes">Notes for Michael (supplies low, anything broken)
+      <textarea id="notes" placeholder="Example: Steel polish nearly empty. Bathroom diffuser needs batteries."></textarea>
+    </label>
+    <pre class="summary" id="summary"></pre>
+    <div class="btns">
+      <a class="btn primary" id="wa" href="https://wa.me/" target="_blank" rel="noopener">Send on WhatsApp</a>
+      <button class="btn ghost" id="copy" type="button">Copy summary</button>
+      <button class="btn ghost" id="reset" type="button">Start a new clean</button>
+    </div>
+    <p class="status" id="status"></p>
+  </section>
+
+  <section class="tips">
+    <h2>Supplies to keep stocked</h2>
+    <p>Tell Michael when any of these is running low.</p>
+    <div class="supplies" id="supplies"></div>
+  </section>
+</div>
+
+<dialog id="lightbox">
+  <img id="lb-img" alt="">
+  <p id="lb-cap"></p>
+  <button class="btn ghost" id="lb-close" type="button">Close</button>
+</dialog>
+
+<script>
+const V = {
+  coffee: ["Sage Barista Touch guide", "https://youtube.com/watch?v=dJfvRSSlnaE"],
+  coffeeClean: ["Coffee cleaning cycle", "https://www.youtube.com/watch?v=kB_czudrKo0"],
+  knives: ["How to sharpen the knives", "https://www.youtube.com/watch?v=NYa9Qw3DeNA"],
+  fryer: ["Air fryer cleaning", "https://www.youtube.com/watch?v=bo8HF0XfkN8"],
+  sleep: ["Eight Sleep cover and base", "https://www.youtube.com/watch?v=tnbu4eYN6W4"],
+  dyson: ["Dyson V12 care (3 min)", "https://www.youtube.com/watch?v=Gj7hvyrVbZw"],
+  robot: ["Dreame robot care", "https://www.youtube.com/watch?v=_cDopg3MjnA"],
+};
+const P = (src, cap, bad) => ({ src: "img/" + src + ".jpg", cap, bad: !!bad });
+const DONE = (what) => ({ src: null, cap: "<b>Finished:</b> " + what + ". Photo coming after the next clean." });
+
+const ROOMS = [
+  { title: "Start here: the machines", lead: "Do these first, in the first 10 minutes.", videos: [V.robot],
+    photos: [P("l_robot_base", "Robot base station. Lift the lid to reach the two water tanks.")],
+    tasks: [
+      ["every", "Robot: empty, fill, start", "Empty and rinse the dirty water tank. Fill the clean water tank to MAX. Pick up cables and clothes from the floor. Press Start on the robot."],
+      ["every", "Dishwasher: empty, load, start", "Empty the clean dishes and put them away. Load the big items (grill parts, grease tray, air fryer drawers and plates, coffee drip tray). Start it."],
+    ] },
+  { title: "Kitchen", lead: "Nothing left on the worktops, sink or draining board.", videos: [V.coffee, V.coffeeClean, V.knives, V.fryer],
+    photos: [P("kitchen-overview", "The kitchen."), P("kitchen-dishwasher-dirty", "<b>Not acceptable:</b> food left in the bottom of the dishwasher.", 1), P("kitchen-fridge", "Fridge shelves."), P("kitchen-fridge-door", "Fridge door. The black water jug lives here."), P("kitchen-freezer", "Freezer drawers and ice trays."), P("kitchen-coffee", "Coffee machine and knife block."), DONE("clean coffee machine"),P("kitchen-knives", "Knife block with the built-in sharpener."), P("kitchen-airfryer", "Ninja air fryer."), DONE("clean air fryer"),P("kitchen-hob", "Hob and oven."), P("kitchen-extractor", "Extractor hood above the hob."), P("kitchen-sink", "Sink and filtered water tap."), P("kitchen-bin", "Kitchen bin.")],
+    tasks: [
+      ["every", "Washing up", "Wash anything that did not go in the dishwasher. Put everything away in its cupboard."],
+      ["every", "Fridge: check and wipe", "Throw away anything old, mouldy or smelly (not sure? photo it and ask Michael). Wipe every shelf, drawer and door shelf, and the handles."],
+      ["every", "Water jug and ice trays", "Fill the black water jug and all the ice trays from the filtered water tap."],
+      ["every", "Coffee machine", "Empty and refill the water tank. Rinse the drip tray, portafilter and basket. Wipe the group head. Purge and wipe the steam wand. Wash the milk jug. Wipe the outside. If the screen says Clean, Descale or Filter, tell Michael."],
+      ["every", "Air fryer", "Unplug it and let it cool. Wipe both chambers and the heating elements (turn it upside down). Wipe the outside. Refit the drawers and plates when the dishwasher is done. The main unit never goes in water."],
+      ["every", "Hob and extractor", "Wipe the hob and the front of the extractor until there is no grease."],
+      ["every", "Sink and worktops", "Scrub the sink and plughole, polish the tap dry. Clean every worktop, then wipe over with peppermint oil."],
+      ["every", "Bin", "Take the bag out. Wipe the bin inside and out, spray with disinfectant, fit a new bag."],
+      ["every", "Fresh tea towels and sponge", "Put out clean tea towels and a clean sponge. The used ones go in the wash."],
+      ["mon", "Coffee cleaning cycle", "Run the cleaning cycle with one tablet. Clean the steam wand tip. Brush out the grinder chute. No water on the grinder."],
+      ["mon", "Sharpen the knives", "Sharpen every straight knife in the block sharpener. Skip serrated knives. Hand-wash and dry them. Knives never go in the dishwasher."],
+      ["mon", "Behind the oven", "Pull the oven forward carefully (mind the cable and gas hose). Vacuum and wipe behind and under it. Look for insects. Push it back flush."],
+      ["mon", "Under the cupboards", "Take off the panels at the bottom of the cupboards, vacuum underneath, put them back."],
+      ["mon", "Kitchen drain", "Half a cup of bicarbonate of soda, then a cup of white vinegar. Wait 10 minutes. Pour in a kettle of boiling water."],
+      ["mon", "Bin deep clean", "Wash it out with hot soapy water. Put a spoonful of bicarbonate of soda in the bottom."],
+      ["monthly", "Dishwasher and extractor filters", "Take out and rinse the dishwasher filter. Top up salt and rinse aid if the light is on. Put the extractor grease filters through the dishwasher."],
+    ] },
+  { title: "Bathrooms (main + guest toilet)", lead: "There are two: the main bathroom and the guest toilet by the front door. Do both.",
+    photos: [P("r_shower", "Main bathroom shower."), P("r_shower_floor", "<b>Not acceptable:</b> dark grime in the floor grout and along the glass edge.", 1), DONE("clean shower floor"),P("r_toilet", "Main bathroom toilet."), P("r_sink", "Main bathroom sink and mirror."), P("r_towels", "Clean towels live on this shelf. Fold and stack them neatly."), P("l_guest_wc", "Guest toilet by the front door.")],
+    warn: ["Never mix cleaning products. Bleach mixed with vinegar or toilet cleaner makes a toxic gas. Rinse the bleach away completely before using anything else."],
+    tasks: [
+      ["every", "Mirrors and shower glass", "Polish streak-free, inside and out."],
+      ["every", "Shower", "Scrub the floor and grout with diluted bleach, then rinse it all away. Wipe the walls and taps, polish the chrome, pull hair out of the drain."],
+      ["every", "Toilets (both)", "Scrub the bowl and under the rim. Disinfect the seat on both sides, the lid, the flush button and the base. Rinse the brush."],
+      ["every", "Sinks and surfaces", "Clean the sinks and taps. Wipe every surface, door handle and light switch."],
+      ["every", "Towels, toilet roll, soap, bin", "Fresh towels out, used ones in the wash. Top up toilet roll and soap. Empty the bins."],
+      ["every", "Floors", "Vacuum and mop, including behind the toilets."],
+      ["mon", "Drains, mat, fan, grout", "Freshen the drains (bicarbonate, vinegar, boiling water). Wash the bath mat. Dust the extractor fan. Look for black mould in the grout and tell Michael."],
+      ["monthly", "Descale", "Descale the shower head and taps."],
+    ] },
+  { title: "Bedroom", lead: "Bed made, every piece of clothing put away, every surface dust-free.", videos: [V.sleep],
+    photos: [P("r_bed_unmade", "<b>Not acceptable:</b> bed left unmade.", 1), DONE("bed made"),P("r_clothes_out", "<b>Not acceptable:</b> clothes left on top of the drawers.", 1), P("r_drawers_clutter", "<b>Not acceptable:</b> a cluttered top. Line things up and coil the cables.", 1), P("r_wardrobe", "Wardrobe: hang everything neatly, facing the same way."), P("r_bedside", "Bedside table."), P("r_mirror", "Bedroom mirror."), P("r_hubs", "The two black boxes are the Eight Sleep hubs. Dust them, nothing on top."), P("r_pillow_hose", "The black Eight Sleep pillow cover and its hose. Never pull the hose.")],
+    warn: ["Never wash or dry-clean the Eight Sleep mattress cover or pillow covers. Only the normal sheets and pillowcases come off."],
+    tasks: [
+      ["every", "Mirror", "Polish streak-free."],
+      ["every", "Clothes away", "Nothing on the drawers, chairs, bed or floor. Fold into drawers or hang in the wardrobe."],
+      ["every", "Make the bed", "Sheets tight, duvet straight, pillows lined up."],
+      ["every", "Bedside tables and lamps", "Dust them and tidy everything on them."],
+      ["every", "Eight Sleep hubs", "Dust the two black hubs. Keep their vents clear. Check no hose is bent or squashed."],
+      ["mon", "Change the bedding", "Strip the sheets, duvet cover and pillowcases and bag them for the dry cleaner. Make the bed with a fresh set. Put the returned set in the linen cupboard."],
+      ["mon", "Pillows cooling side up", "Leave the Eight Sleep covers on. Put the fresh pillowcases on with the cooling side facing up."],
+      ["mon", "Under the bed", "Vacuum under the bed with the Dyson where the robot cannot reach."],
+      ["monthly", "Lampshades", "Dust the lampshades and light fittings."],
+    ] },
+  { title: "Living room", lead: "Sofa tidy, blankets folded away, screens dust-free, projector not moved.",
+    photos: [P("l_sofa", "<b>Not acceptable:</b> blankets left out on the sofa.", 1), DONE("tidy sofa"),P("l_screen", "The projector screen."), P("l_projector", "The projector on the TV cabinet. Do not move it."), P("l_proj_lens", "The lens is the black glass strip on top. Dry cloth only.")],
+    warn: ["Do not move the projector. Even a small push moves the picture. If it moves, put it back on its markers, switch it on and check the picture fits the screen."],
+    tasks: [
+      ["every", "Sofa", "Plump and straighten every cushion. Fold the blankets neatly and put them away."],
+      ["every", "TV and projector", "Wipe the TV screen with a dry microfibre cloth. With the projector off and cool, dust it and polish the black lens strip on top. No sprays."],
+      ["mon", "Vacuum the sofa", "Vacuum the sofa, including under the cushions."],
+    ] },
+  { title: "Balcony", lead: "Grill spotless, furniture free of marks, fountain flowing, ice bath clear.",
+    photos: [P("b_gas", "Gas cylinder under the table. Turn the valve off first."), P("b_grill_burner", "<b>Not acceptable:</b> burnt grease in the burner channel.", 1), P("b_grease_tray", "<b>Not acceptable:</b> grease left in the drip tray.", 1), DONE("clean burner and drip tray"),P("b_grill_lid", "Finished: lids closed, tabletop wiped with warm water."), P("b_table_chairs", "Dining chairs."), P("b_loungers", "Sun loungers."), P("b_sauna_ext", "The sauna and its stone heater."), P("b_sauna_heater", "Sauna benches."), P("b_fountain", "The fountain."), P("b_fountain_dirty", "<b>Not acceptable:</b> green and yellow grime on the tiers.", 1), DONE("clean white fountain"),P("b_ice_closed", "Ice bath with its cover on."), P("b_ice_net", "The fishing net is kept beside the ice bath."), P("b_ice_debris", "<b>Not acceptable:</b> debris in the ice bath water.", 1), P("b_ice_skim", "Skim it all out with the net."), P("b_balustrade", "Balcony glass and handrail.")],
+    warn: ["Tabletop: warm water only. No polish, sprays or chemicals on the grill table top.", "No chemicals in the fountain (birds drink from it) and no bleach or sprays on the sauna wood.", "Only clean glass you can reach standing flat on the balcony floor. Never lean over the glass or climb on furniture."],
+    tasks: [
+      ["every", "Grill: safety first", "Gas off at the cylinder under the table. Grill completely cool."],
+      ["every", "Grill: clean and polish", "Scrape and wipe the burner channels. Empty and wash the drip tray. Refit the clean parts from the dishwasher. Polish all the steel with steel polish."],
+      ["every", "Grill tabletop", "Wipe with warm water only (a drop of mild soap if needed) and dry it."],
+      ["every", "Chairs and sun loungers", "Wipe them down. Remove every mark before it stains."],
+      ["every", "Sauna", "Check it is off and cool. Polish the glass inside and out. Wipe the benches and walls with the eucalyptus sauna wash in warm water. Sweep the floor. Leave the door open to air."],
+      ["every", "Fountain", "Unplug the pump. Take out leaves and dirt. Scrub every tier until white. Rinse the pump intake. Fill to the top, plug in, check the water flows strongly over every level."],
+      ["every", "Ice bath", "Skim out every bit of debris with the net. Wipe the rim and lid. Tell Michael if water is pooling underneath."],
+      ["every", "Bird feeder and grass", "Top up the feeder with a small amount of food from the utility cupboard. Vacuum the grass with the Dyson, especially round the feeder. Empty the Dyson bin after."],
+      ["every", "Balcony floor", "Sweep and mop the tiled areas."],
+      ["thu", "Balcony glass", "Clean the balcony doors, windows and glass panels on both sides, streak-free. Wipe the handrail."],
+      ["monthly", "Sauna deep clean", "Dust the heater guard, light and vents. Look for sweat marks or mould on the wood and tell Michael. Replace the eucalyptus bundle."],
+    ] },
+  { title: "Around the apartment", lead: "Entrance clean, everything dusted, plants watered, all 4 diffusers running.",
+    photos: [P("l_entrance", "Entrance: shoe rack and the inside mat."), P("l_mat_out", "The outside mat by the front door."), P("l_mirror", "Hallway mirror."), P("l_floor_plant", "Floor plants on the tiles."), P("diffuser-kitchen-tower", "Kitchen diffuser (black tower), next to the Dyson air purifier."), P("diffuser-aroma-box", "Diffuser (black box)."), P("diffuser-bathroom", "Bathroom diffuser and its blue oil refill."), P("diffuser-silver-tower", "Diffuser (silver tower).")],
+    tasks: [
+      ["every", "Entrance", "Vacuum both mats (inside and outside the front door). Wipe the door, handle and frame. Polish the hallway mirror."],
+      ["every", "Dust everything", "All surfaces, shelves, skirting boards, door handles and light switches. Top to bottom."],
+      ["every", "Plants", "Push a finger 3 cm into the soil. Water only if it is dry. Scrape off any white mould. Empty saucers and wipe up spills."],
+      ["every", "Aroma diffusers (4)", "Kitchen, living room, bathroom, bedroom. Top up oil, change batteries if needed, make sure all 4 are on."],
+      ["every", "Floors touch-up", "After the robot, use the Dyson on edges, corners and under furniture. Quick spot-mop."],
+      ["every", "Rubbish", "Empty every bin in the apartment and take all the bags out."],
+      ["mon", "Under the floor plants", "Lift each plant standing on the tiles. Mop and dry underneath. Wipe the saucer and put the plant back on it. Tell Michael about any water marks."],
+      ["thu", "Windows", "Clean all bedroom and living room windows on both sides, streak-free, plus frames, tracks and sills."],
+      ["monthly", "AC vents", "Dust all the air-conditioning vents and grilles."],
+    ] },
+  { title: "Laundry", lead: "Washed, dried, ironed and put away before you leave.",
+    tasks: [
+      ["every", "Wash and dry", "From the laundry basket, take items safe to wash and tumble dry (underwear, socks, towels). Add the used cleaning cloths and tea towels. One detergent pod plus scent booster. Quick wash with drying. Leave delicate items in the basket."],
+      ["every", "Iron, fold, put away", "Iron what needs it and hang it in the wardrobe. Fold everything else neatly into the right drawers. Bedding and towels go in the linen cupboard."],
+      ["monthly", "Washing machine clean", "Wipe the door seal and the soap drawer. Run an empty hot drum-clean cycle."],
+    ] },
+  { title: "Machine care", lead: "At the end of the clean, after all the vacuuming is finished.", videos: [V.dyson, V.robot],
+    photos: [P("dyson-v12-and-washer", "Dyson V12 on its wall dock.")],
+    tasks: [
+      ["every", "Robot: finish", "Robot back on its base. Empty the dirty water tank again. Wipe the tray at the bottom of the base."],
+      ["mon", "Dyson V12", "Empty and wipe the bin. Rinse the filter in cold water and leave it out to dry (24 hours). Pull hair off the brush (no water on it). Rinse the soft roller. Check for blockages."],
+      ["mon", "Dreame robot", "Cut hair off the main brush and side brush. Tap the filter clean (do not wash it). Rinse the mop pads. Wipe the sensors and wheels. If the dust bag is full, tell Michael."],
+      ["mon", "Air purifiers", "Dust and wipe the outside of the Dyson purifiers. On the Coway, vacuum or rinse the grey mesh pre-filter and let it dry. Never wash the inside filters."],
+    ] },
+  { title: "Before you leave", lead: "The last walk round.",
+    tasks: [
+      ["every", "Dishwasher empty", "Everything put away. Nothing on the worktops."],
+      ["every", "Laundry away", "Nothing left in the machine or on any surface."],
+      ["every", "Gas off", "Grill gas off at the cylinder."],
+      ["every", "Diffusers on", "All 4 full and running."],
+      ["every", "Final walk-through", "Every room: nothing left out on any surface, bed or floor."],
+    ] },
+];
+
+const SUPPLIES = ["Peppermint oil", "Bicarbonate of soda", "White vinegar", "Bleach", "Toilet cleaner", "Disinfectant spray", "Glass cleaner", "Steel polish", "Eucalyptus sauna wash", "Eucalyptus bundle", "Detergent pods", "Scent booster", "Drum cleaner", "Dishwasher salt", "Rinse aid", "Coffee cleaning tablets", "Descaler", "Distilled water", "Bin bags", "Sponges", "Bird food", "Diffuser oil", "Diffuser batteries"];
+const COLORS = ["var(--every)", "var(--mon)", "var(--thu)", "var(--monthly)"];
+const LABEL = { every: "Every visit", mon: "Monday", thu: "Thursday", monthly: "Monthly" };
+
+const $ = (id) => document.getElementById(id);
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} },
+};
+
+// Today in Dubai time
+const now = new Date();
+const dubai = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Dubai" }));
+const isThu = dubai.getDay() === 4;
+const firstMonday = dubai.getDay() === 1 && dubai.getDate() <= 7;
+const dateLabel = dubai.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+
+let state = store.get("clean-state", null);
+const todayKey = dubai.getFullYear() + "-" + String(dubai.getMonth() + 1).padStart(2, "0") + "-" + String(dubai.getDate()).padStart(2, "0");
+if (!state || state.date !== todayKey) state = { date: todayKey, day: isThu ? "thu" : "mon", monthly: firstMonday, done: {} };
+
+function visible(when) {
+  if (when === "every") return true;
+  if (when === "monthly") return state.day === "mon" && state.monthly;
+  return when === state.day;
+}
+
+function render() {
+  $("day-mon").setAttribute("aria-pressed", state.day === "mon");
+  $("day-thu").setAttribute("aria-pressed", state.day === "thu");
+  $("monthly").checked = state.monthly;
+  $("monthly-wrap").hidden = state.day !== "mon";
+  $("greeting").textContent = "Hello! Today is " + dateLabel;
+
+  const root = $("rooms");
+  root.innerHTML = "";
+  let n = 0;
+  ROOMS.forEach((room, ri) => {
+    const tasks = room.tasks.map((t, ti) => ({ when: t[0], title: t[1], d: t[2], id: ri + "-" + ti })).filter((t) => visible(t.when));
+    if (!tasks.length) return;
+    n++;
+    const sec = document.createElement("section");
+    sec.className = "room";
+    sec.innerHTML = `<div class="room-head"><div class="room-num" style="background:${COLORS[(n - 1) % 4]}">${n}</div><div><h2>${room.title}</h2><p>${room.lead}</p></div></div>`;
+    if (room.videos) sec.insertAdjacentHTML("beforeend", `<div class="videos">${room.videos.map((v) => `<a href="${v[1]}" target="_blank" rel="noopener">${v[0]}</a>`).join("")}</div>`);
+    if (room.photos) {
+      const strip = document.createElement("div");
+      strip.className = "photos";
+      room.photos.forEach((p) => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "photo" + (p.bad ? " bad" : "") + (p.src ? "" : " todo");
+        b.innerHTML = p.src ? `<img src="${p.src}" alt="" loading="lazy"><small>${p.cap}</small>` : `<span class="slot">Finished photo coming soon</span><small>${p.cap}</small>`;
+        if (p.src) b.addEventListener("click", () => openPhoto(p)); else b.disabled = true;
+        strip.appendChild(b);
+      });
+      sec.appendChild(strip);
+    }
+    (room.warn || []).forEach((w) => sec.insertAdjacentHTML("beforeend", `<div class="warn"><span>${w}</span></div>`));
+    const ul = document.createElement("ul");
+    ul.className = "tasks";
+    tasks.forEach((t) => {
+      const li = document.createElement("li");
+      li.className = "task " + t.when;
+      li.innerHTML = `<label for="t-${t.id}"><input type="checkbox" id="t-${t.id}"${state.done[t.id] ? " checked" : ""}><span class="txt"><span class="top"><strong>${t.title}</strong><span class="chip ${t.when}">${LABEL[t.when]}</span></span><span class="d">${t.d}</span></span></label>`;
+      li.querySelector("input").addEventListener("change", (e) => {
+        if (e.target.checked) state.done[t.id] = true; else delete state.done[t.id];
+        save(); progress();
+      });
+      ul.appendChild(li);
+    });
+    sec.appendChild(ul);
+    root.appendChild(sec);
+  });
+  progress();
+}
+
+function shownTasks() {
+  const out = [];
+  ROOMS.forEach((room, ri) => room.tasks.forEach((t, ti) => { if (visible(t[0])) out.push({ id: ri + "-" + ti, room: room.title, title: t[1] }); }));
+  return out;
+}
+
+function progress() {
+  const all = shownTasks();
+  const done = all.filter((t) => state.done[t.id]).length;
+  $("prog-count").textContent = done + " of " + all.length + " done";
+  $("prog-bar").style.width = all.length ? (100 * done / all.length) + "%" : "0";
+  $("prog-label").textContent = done === all.length && all.length ? "All done. Amazing work!" : done > all.length / 2 ? "More than halfway!" : done ? "Great start, keep going" : "Let's go!";
+  summary();
+}
+
+function summary() {
+  const all = shownTasks();
+  const left = all.filter((t) => !state.done[t.id]);
+  const dayName = state.day === "mon" ? "Monday" : "Thursday";
+  let s = `Clean finished: ${dateLabel} (${dayName} list${state.day === "mon" && state.monthly ? " + monthly" : ""})\nDone: ${all.length - left.length} of ${all.length} tasks`;
+  s += left.length ? "\n\nNot done:\n" + left.map((t) => `- ${t.room}: ${t.title}`).join("\n") : "\n\nEverything on the list is done.";
+  const notes = $("notes").value.trim();
+  if (notes) s += "\n\nNotes:\n" + notes;
+  $("summary").textContent = s;
+  $("wa").href = "https://wa.me/?text=" + encodeURIComponent(s);
+  return s;
+}
+
+function save() { store.set("clean-state", state); }
+
+function openPhoto(p) {
+  $("lb-img").src = p.src;
+  $("lb-cap").innerHTML = p.cap;
+  $("lightbox").showModal();
+}
+$("lb-close").addEventListener("click", () => $("lightbox").close());
+$("lightbox").addEventListener("click", (e) => { if (e.target.id === "lightbox") $("lightbox").close(); });
+
+$("day-mon").addEventListener("click", () => { state.day = "mon"; save(); render(); });
+$("day-thu").addEventListener("click", () => { state.day = "thu"; save(); render(); });
+$("monthly").addEventListener("change", (e) => { state.monthly = e.target.checked; save(); render(); });
+$("notes").value = store.get("clean-notes-" + todayKey, "");
+$("notes").addEventListener("input", (e) => { store.set("clean-notes-" + todayKey, e.target.value); summary(); });
+$("copy").addEventListener("click", () => {
+  const s = summary();
+  navigator.clipboard.writeText(s).then(() => { $("status").textContent = "Copied. Paste it into your message to Michael."; }, () => {
+    const r = document.createRange(); r.selectNodeContents($("summary"));
+    const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r);
+    $("status").textContent = "Summary selected. Press copy on your phone, then paste it to Michael.";
+  });
+});
+let resetArmed = false;
+$("reset").addEventListener("click", () => {
+  if (!resetArmed) { resetArmed = true; $("reset").textContent = "Tap again to clear all ticks"; setTimeout(() => { resetArmed = false; $("reset").textContent = "Start a new clean"; }, 4000); return; }
+  resetArmed = false; state.done = {}; save(); $("reset").textContent = "Start a new clean"; $("status").textContent = "All ticks cleared. Ready for a new clean."; render();
+});
+
+$("supplies").innerHTML = SUPPLIES.map((s) => `<span>${s}</span>`).join("");
+render();
+</script>
+</body>
+</html>
