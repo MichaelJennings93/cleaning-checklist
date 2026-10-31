@@ -7,12 +7,29 @@ const cp = require("node:child_process");
 const C = require("../core.js");
 const root = path.resolve(__dirname, "..");
 const dataText = fs.readFileSync(path.join(root, "data.js"), "utf8");
-const { rooms, media, photos } = vm.runInNewContext(dataText + "; ({ rooms: ROOMS, media: MEDIA, photos: ALL_PHOTOS })");
+const { rooms, media, photos, videos } = vm.runInNewContext(dataText + "; ({ rooms: ROOMS, media: MEDIA, photos: ALL_PHOTOS, videos: V })");
 const mon = C.fromKey("2026-11-09"), thu = C.fromKey("2026-11-05"), monthly = C.fromKey("2026-11-02");
-test("all original task IDs, instructions, safety notes, photos and videos are retained", () => {
+test("guide additions preserve original task IDs, schedules, safety notes and media", () => {
   const original = cp.execFileSync("git", ["show", "64887cad9aaf6abc8393d8965d71e84a737811f2:index.html"], { cwd: root, encoding: "utf8" });
   const start = original.indexOf("const V ="), end = original.indexOf("const COLORS =");
-  assert.equal(dataText.replace(/\r/g, ""), original.slice(start, end).replace(/\r/g, ""));
+  const baseline = vm.runInNewContext(original.slice(start, end) + "; ({ rooms: ROOMS, media: MEDIA, photos: ALL_PHOTOS, videos: V })");
+  const json = value => JSON.stringify(value);
+  assert.equal(rooms.length, baseline.rooms.length);
+  baseline.rooms.forEach((room, ri) => {
+    assert.equal(rooms[ri].title, room.title);
+    assert.equal(rooms[ri].tasks.length, room.tasks.length);
+    assert.equal(json(rooms[ri].warn), json(room.warn));
+    room.tasks.forEach((task, ti) => {
+      assert.equal(json(rooms[ri].tasks[ti].slice(0, 2)), json(task.slice(0, 2)), `stable task ${ri}-${ti}`);
+      if (task[1] !== "Grill: clean and polish") assert.equal(rooms[ri].tasks[ti][2], task[2]);
+    });
+  });
+  for (const [key, photo] of Object.entries(baseline.photos)) assert.equal(json(photos[key]), json(photo));
+  for (const [key, video] of Object.entries(baseline.videos)) assert.equal(json(videos[key]), json(video));
+  for (const [title, guide] of Object.entries(baseline.media)) {
+    for (const key of guide.p || []) assert(media[title].p.includes(key), `${title}: ${key}`);
+    for (const key of guide.v || []) assert(media[title].v.includes(key), `${title}: ${key}`);
+  }
 });
 test("Monday, Thursday, and first-Monday monthly schedules are distinct", () => {
   const monday = C.tasksFor(rooms, mon), thursday = C.tasksFor(rooms, thu), month = C.tasksFor(rooms, monthly);

@@ -43,3 +43,9 @@ The coastal hero is Palm Jumeirah area photography, not a photograph of the Azur
 - File: img/palm-coast.jpg. Credit also appears in the site footer.
 - The apartment and sea-view photographs were retained from the original website.
 
+## Green Lion grill brush guide
+
+Added the owner's front/back GL-CB5 box photos on 31 October 2026, optimized for mobile and with EXIF metadata removed. Original NAS files: `20261031_185513.jpg` and `20261031_185523.jpg`. The other uploaded front view was a duplicate.
+
+The operating steps follow Green Lion's GL-CB5 manual: https://www.greenlion.net/blog/green-lion-guides-183/gncb5grilbrbk-2898. The household's existing gas-off/cold-grill instruction is retained. The three-minute video is Grillion's official tutorial for a similar rotary brush, explicitly labelled as a different model: https://www.youtube.com/watch?v=9ycJS4dVpus. The note beside the video directs cleaners to this guide and clarifies cold grill, plain water and hand-rinsing; the video differs on these points. Task order and IDs remain unchanged to preserve saved ticks.
+

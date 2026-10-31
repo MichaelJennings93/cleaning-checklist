@@ -6,10 +6,19 @@ const V = {
   sleep: ["Eight Sleep bed", "https://www.youtube.com/watch?v=tnbu4eYN6W4"],
   dyson: ["Dyson vacuum care", "https://www.youtube.com/watch?v=Gj7hvyrVbZw"],
   robot: ["Robot vacuum care", "https://www.youtube.com/watch?v=_cDopg3MjnA"],
+  grillBrush: ["Brush demo · 3 min (similar model)", "https://www.youtube.com/watch?v=9ycJS4dVpus"],
 };
 const P = (src, cap, bad) => ({ src: "img/" + src + ".jpg", cap, bad: !!bad });
 const DONE = (what) => ({ src: null, cap: "<b>Perfect:</b> " + what + ". Photo to be inserted." });
 const PERFECT = { src: null, cap: "<b>Perfect:</b> photo to be inserted after the first clean." };
+const GRILL_BRUSH_GUIDE = '<b>Your Green Lion GL-CB5 electric grill brush.</b><ol class="guide-steps">' +
+  '<li><b>Get ready.</b> Gas off; grill completely cool. Charge the brush, then unplug it. With the brush off, check that the roller is secure and has no loose wires. Wear the supplied gloves.</li>' +
+  '<li><b>Add water.</b> Fill the tank with plain warm water (no hotter than 60°C) and fit it firmly.</li>' +
+  '<li><b>Brush gently.</b> Use on uncoated metal grates only. Keep the roller parallel to the grate bars and move slowly. Let the motor work; do not force it. If it stops, release pressure before restarting.</li>' +
+  '<li><b>Check the grates.</b> Switch off. Remove all loosened grease and any loose wires. Rinse or wipe the grates clean, then dry them.</li>' +
+  '<li><b>Put away.</b> Hand-rinse the brush, wipe the body and let everything dry. Keep the charging port dry. Recharge with a 5V supply and store in its case.</li></ol>' +
+  '<p>Keep this brush away from the tabletop, burner openings, coated surfaces and polished exterior steel.</p>' +
+  '<a class="guide-source" href="https://www.greenlion.net/blog/green-lion-guides-183/gncb5grilbrbk-2898" target="_blank" rel="noopener">Green Lion instructions ↗</a>';
 
 const ROOMS = [
   { step: 2, title: "Robot and dishwasher", lead: "Do these two first.", videos: [V.robot],
@@ -73,12 +82,13 @@ const ROOMS = [
       ["every", "TV and projector", "Wipe the TV screen with a dry microfibre cloth. With the projector off and cool, dust it and polish the black lens strip on top. No sprays."],
       ["mon", "Vacuum the sofa", "Vacuum the sofa, including under the cushions."],
     ] },
-  { step: 3, title: "Balcony", lead: "Grill spotless, furniture free of marks, fountain flowing, ice bath clear.",
-    photos: [P("b_gas", "Gas cylinder under the table. Turn the valve off first."), P("b_grill_burner", "<b>Not acceptable:</b> burnt grease in the burner channel.", 1), P("b_grease_tray", "<b>Not acceptable:</b> grease left in the drip tray.", 1), DONE("clean burner and drip tray"), P("b_grill_lid", "Finished: lids closed, tabletop wiped with warm water."), P("b_table_chairs", "Dining chairs."), P("b_loungers", "Sun loungers."), P("b_sauna_ext", "The sauna and its stone heater."), P("b_sauna_heater", "Sauna benches."), P("b_sauna_bucket", "The sauna bucket and ladle. Fill it to the top with filtered water."),P("b_fountain", "The fountain."), P("b_fountain_dirty", "<b>Not acceptable:</b> green and yellow grime on the tiers.", 1), DONE("clean white fountain"), P("b_ice_closed", "Ice bath with its cover on."), P("b_ice_net", "The fishing net is kept beside the ice bath."), P("b_ice_debris", "<b>Not acceptable:</b> debris in the ice bath water.", 1), P("b_ice_skim", "Skim it all out with the net."), P("b_balustrade", "Balcony glass and handrail.")],
+  { step: 3, title: "Balcony", lead: "Grill spotless, furniture free of marks, fountain flowing, ice bath clear.", videos: [V.grillBrush],
+    // Owner-supplied photos, added 31 October 2026. Keep existing task positions for saved ticks.
+    photos: [{ ...P("b_grill_brush", GRILL_BRUSH_GUIDE), alt: "The Green Lion GL-CB5 electric grill brush box, showing the brush, water tank, gloves and scraper." }, P("b_grill_brush_box", "The back of your box: model GL-CB5, with the storage case and detachable water tank shown."), P("b_gas", "Gas cylinder under the table. Turn the valve off first."), P("b_grill_burner", "<b>Not acceptable:</b> burnt grease in the burner channel.", 1), P("b_grease_tray", "<b>Not acceptable:</b> grease left in the drip tray.", 1), DONE("clean burner and drip tray"), P("b_grill_lid", "Finished: lids closed, tabletop wiped with warm water."), P("b_table_chairs", "Dining chairs."), P("b_loungers", "Sun loungers."), P("b_sauna_ext", "The sauna and its stone heater."), P("b_sauna_heater", "Sauna benches."), P("b_sauna_bucket", "The sauna bucket and ladle. Fill it to the top with filtered water."),P("b_fountain", "The fountain."), P("b_fountain_dirty", "<b>Not acceptable:</b> green and yellow grime on the tiers.", 1), DONE("clean white fountain"), P("b_ice_closed", "Ice bath with its cover on."), P("b_ice_net", "The fishing net is kept beside the ice bath."), P("b_ice_debris", "<b>Not acceptable:</b> debris in the ice bath water.", 1), P("b_ice_skim", "Skim it all out with the net."), P("b_balustrade", "Balcony glass and handrail.")],
     warn: ["Grill tabletop: warm water only. No polish, sprays or chemicals on it.", "No chemicals in the fountain (birds drink from it). No bleach or sprays on the sauna wood.", "Only clean glass you can reach standing flat on the balcony floor. Never lean over the glass or climb on furniture."],
     tasks: [
       ["every", "Grill: gas off", "Gas off at the cylinder under the table. Grill completely cool."],
-      ["every", "Grill: clean and polish", "Scrape and wipe the burner channels. Empty and wash the drip tray. Refit the clean parts from the dishwasher. Polish all the steel with steel polish."],
+      ["every", "Grill: clean and polish", "Use the Green Lion brush on suitable grill grates (see Photo guide). Clean the burner channels by hand. Empty and wash the drip tray. Refit the clean parts from the dishwasher. Polish exterior steel only."],
       ["every", "Grill tabletop", "Wipe with warm water only (a drop of mild soap if needed) and dry it."],
       ["every", "Chairs and sun loungers", "Wipe them down. Remove every mark before it stains."],
       ["every", "Sauna", "Check it is off and cool. Polish the glass inside and out. Wipe the benches and walls with the eucalyptus sauna wash in warm water. Sweep the floor. Leave the door open to air."],
@@ -156,7 +166,7 @@ const MEDIA = {
   "Sofa": { p: ["l_sofa", "done:tidy sofa"] },
   "TV and projector": { p: ["l_screen", "l_projector", "l_proj_lens"] },
   "Grill: gas off": { p: ["b_gas"] },
-  "Grill: clean and polish": { p: ["b_grill_burner", "b_grease_tray", "done:burner and drip tray"] },
+  "Grill: clean and polish": { p: ["b_grill_brush", "b_grill_brush_box", "b_grill_burner", "b_grease_tray", "done:burner and drip tray"], v: ["grillBrush"], note: "The video demonstrates a similar Grillion brush. For our Green Lion: grill cold, plain water in the tank, and hand-rinse the brush. Follow Photo guide for setup." },
   "Grill tabletop": { p: ["b_grill_lid"] },
   "Chairs and sun loungers": { p: ["b_table_chairs", "b_loungers"] },
   "Sauna": { p: ["b_sauna_ext", "b_sauna_heater"] },
