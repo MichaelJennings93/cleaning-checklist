@@ -33,5 +33,15 @@ const origin = "http://127.0.0.1:4173";
   assert(history.data.reports.some(r => r.id === id));
   const other = await api("/api/visit?date=2099-11-03");
   assert(!other.data.ticks.some(x => x.id === "0-0"));
+  const C = require("../core.js"), fs = require("node:fs"), vm = require("node:vm"), path = require("node:path");
+  const rooms = vm.runInNewContext(fs.readFileSync(path.join(__dirname, "../data.js"), "utf8") + "; ROOMS");
+  const fountainDate = "2026-11-02";
+  assert.equal((await api("/api/ticks", { date: fountainDate, changes: [{ id: "5-12", on: true, t: Date.now() }] })).response.status, 200);
+  for (const visitDate of [fountainDate, "2026-11-09", "2026-11-30", "2027-01-11"]) {
+    const result = await api("/api/report", { id: randomUUID(), date: visitDate, notes: "Local schedule QA", supplies: [] });
+    assert.equal(result.response.status, 201);
+    assert.deepEqual(result.data.tasks.map(t => t.id), Array.from(C.tasksFor(rooms, C.fromKey(visitDate)), t => t.id), "browser and saved report schedules must match for " + visitDate);
+    if (visitDate === fountainDate) assert.equal(result.data.tasks.find(t => t.id === "5-12").done, true);
+  }
   console.log("PASS: authenticated sessions, origin checks, durable ticks, stale update protection, validation, idempotent report saves, immutable history, and date isolation.");
 })().catch(error => { console.error(error); process.exitCode = 1; });

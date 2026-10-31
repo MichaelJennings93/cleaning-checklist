@@ -14,6 +14,7 @@ The backend source is maintained separately in the sibling azure-cleaning-servic
 
 - One shared checklist, using the original room and task IDs.
 - Monday and Thursday extras, plus monthly care on the first Monday.
+- Full fountain water changes every 14 days on alternate Mondays, starting 2 November 2026 (2, 16, 30 November, 14 December, and so on). The normal fountain task stays on every visit. The new task is appended to preserve existing checkbox IDs and is included in the shared report only on its scheduled dates.
 - Non-scheduled dates retain the original Monday-list fallback and are explicitly labelled.
 - Ticks save immediately to shared storage. Visible pages refresh every two seconds.
 - Offline changes persist on the phone and retry automatically. A report cannot be marked saved while that phone's changes are waiting to sync.

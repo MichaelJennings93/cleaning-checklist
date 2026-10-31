@@ -14,10 +14,15 @@ const CleanCore = (() => {
     return fromKey(p.year + "-" + p.month + "-" + p.day);
   }
   const firstMonday = d => d.getDay() === 1 && d.getDate() <= 7;
+  // Alternate Mondays from 2 Nov 2026; calendar days avoid timezone/DST drift.
+  const fortnightly = d => {
+    const days = (Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) - Date.UTC(2026, 10, 2)) / 864e5;
+    return days >= 0 && days % 14 === 0;
+  };
   const visitDay = d => [1, 4].includes(d.getDay());
   // Preserve the original Monday-list fallback for an unscheduled visit.
   const listFor = d => d.getDay() === 4 ? "thu" : "mon";
-  const visible = (when, d) => when === "every" || (when === "monthly" ? firstMonday(d) : when === listFor(d));
+  const visible = (when, d) => when === "every" || (when === "monthly" ? firstMonday(d) : when === "fortnightly" ? fortnightly(d) : when === listFor(d));
   function visitDates(today) {
     const previous = new Date(today);
     do { previous.setDate(previous.getDate() - 1); } while (!visitDay(previous));
@@ -68,6 +73,6 @@ const CleanCore = (() => {
       this.onUpdate(ticks); this.status(); this.flush();
     }
   }
-  return { dateKey, fromKey, dubaiToday, firstMonday, visitDay, listFor, visible, visitDates, tasksFor, visitSummary, SyncClient };
+  return { dateKey, fromKey, dubaiToday, firstMonday, fortnightly, visitDay, listFor, visible, visitDates, tasksFor, visitSummary, SyncClient };
 })();
 if (typeof module !== "undefined") module.exports = CleanCore;

@@ -39,7 +39,7 @@ const roomMeta = [
   ["Balcony", "balcony", "Balcony"], ["Shared areas", "home", "Around the apartment"],
   ["Laundry", "machine", "Laundry"], ["Final checks", "check-circle", "The finishing touches"]
 ];
-const LABEL = { every: "Every visit", mon: "Monday extra", thu: "Thursday extra", monthly: "Monthly care" };
+const LABEL = { every: "Every visit", mon: "Monday extra", thu: "Thursday extra", monthly: "Monthly care", fortnightly: "Every 2 weeks" };
 let storageWarning = false;
 const memory = new Map();
 const store = {
@@ -112,10 +112,10 @@ function chooseDate(key) {
 function renderDates() {
   const d = selectedDate();
   $("visit-date").textContent = fmt(d, { weekday: "short", day: "numeric", month: "long" });
-  $("visit-tags").innerHTML = '<span class="tag">Every-visit tasks</span><span class="tag">' + (C.listFor(d) === "thu" ? "Thursday" : "Monday") + ' extras</span>' + (C.firstMonday(d) ? '<span class="tag monthly">Monthly care</span>' : "") + (!C.visitDay(d) ? '<span class="tag custom">Extra visit · Monday list</span>' : "");
+  $("visit-tags").innerHTML = '<span class="tag">Every-visit tasks</span><span class="tag">' + (C.listFor(d) === "thu" ? "Thursday" : "Monday") + ' extras</span>' + (C.firstMonday(d) ? '<span class="tag monthly">Monthly care</span>' : "") + (C.fortnightly(d) ? '<span class="tag fortnightly">Fountain water change</span>' : "") + (!C.visitDay(d) ? '<span class="tag custom">Extra visit · Monday list</span>' : "");
   $("dates").innerHTML = dates.map(date => {
     const key = C.dateKey(date), rel = key === C.dateKey(today) ? "Today" : date < today ? "Previous visit" : "Coming up";
-    return '<button class="date-option" data-date="' + key + '" aria-pressed="' + (key === selected) + '"><strong>' + fmt(date, { weekday: "long" }) + '</strong><span>' + fmt(date, { day: "numeric", month: "long" }) + '</span><small>' + rel + (C.firstMonday(date) ? " · monthly care" : "") + '</small></button>';
+    return '<button class="date-option" data-date="' + key + '" aria-pressed="' + (key === selected) + '"><strong>' + fmt(date, { weekday: "long" }) + '</strong><span>' + fmt(date, { day: "numeric", month: "long" }) + '</span><small>' + rel + (C.firstMonday(date) ? " · monthly care" : "") + (C.fortnightly(date) ? " · fountain water change" : "") + '</small></button>';
   }).join("");
   $("other-date").value = selected;
 }

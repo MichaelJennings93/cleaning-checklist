@@ -17,7 +17,7 @@ test("guide additions preserve original task IDs, schedules, safety notes and me
   assert.equal(rooms.length, baseline.rooms.length);
   baseline.rooms.forEach((room, ri) => {
     assert.equal(rooms[ri].title, room.title);
-    assert.equal(rooms[ri].tasks.length, room.tasks.length);
+    assert(rooms[ri].tasks.length >= room.tasks.length, "new tasks must be appended after existing IDs");
     assert.equal(json(rooms[ri].warn), json(room.warn));
     room.tasks.forEach((task, ti) => {
       assert.equal(json(rooms[ri].tasks[ti].slice(0, 2)), json(task.slice(0, 2)), `stable task ${ri}-${ti}`);
@@ -34,13 +34,28 @@ test("guide additions preserve original task IDs, schedules, safety notes and me
 });
 test("Monday, Thursday, and first-Monday monthly schedules are distinct", () => {
   const monday = C.tasksFor(rooms, mon), thursday = C.tasksFor(rooms, thu), month = C.tasksFor(rooms, monthly);
-  assert.equal(monday.length, 62); assert.equal(thursday.length, 49); assert.equal(month.length, 68);
+  assert.equal(monday.length, 62); assert.equal(thursday.length, 49); assert.equal(month.length, 69);
   assert(monday.some(t => t.title === "Change the bedding"));
   assert(!thursday.some(t => t.title === "Change the bedding"));
   assert(thursday.some(t => t.title === "Balcony glass"));
   assert(!monday.some(t => t.when === "monthly"));
   assert.equal(month.filter(t => t.when === "monthly").length, 6);
 });
+test("fountain water changes repeat every 14 days across month and year boundaries", () => {
+  const title = "Fountain: replace all the water";
+  const due = ["2026-11-02", "2026-11-16", "2026-11-30", "2026-12-14", "2026-12-28", "2027-01-11"];
+  for (const key of due) {
+    const date = C.fromKey(key), tasks = C.tasksFor(rooms, date), task = tasks.find(t => t.title === title);
+    assert(task, key + " must include the full water change");
+    assert.equal(task.id, "5-12");
+    assert(tasks.some(t => t.title === "Fountain" && t.when === "every"));
+    assert(C.visitSummary(tasks, {}, date, "", []).includes(title));
+  }
+  for (const key of ["2026-10-19", "2026-10-26", "2026-11-05", "2026-11-09", "2026-11-23", "2026-12-07", "2027-01-04"]) {
+    assert(!C.tasksFor(rooms, C.fromKey(key)).some(t => t.title === title), key + " must not include a water change");
+  }
+});
+
 test("Dubai date handles UTC midnight boundaries; invalid dates are rejected", () => {
   assert.equal(C.dateKey(C.dubaiToday(new Date("2026-10-31T21:00:00Z"))), "2026-11-01");
   assert.equal(C.dateKey(C.dubaiToday(new Date("2026-10-31T19:59:00Z"))), "2026-10-31");
