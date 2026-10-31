@@ -136,6 +136,11 @@ button { font: inherit; cursor: pointer; color: inherit; }
 .bar { height: 10px; border-radius: 999px; background: var(--surface); overflow: hidden; }
 .bar i { display: block; height: 100%; width: 0; border-radius: inherit; background: linear-gradient(90deg, var(--every), var(--mon)); transition: width 0.3s; }
 
+.sync { display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem; font-weight: 600; color: var(--muted); }
+.sync::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--monthly); }
+.sync.on { color: var(--good); }
+.sync.on::before { background: var(--good); box-shadow: 0 0 0 3px color-mix(in srgb, var(--good) 25%, transparent); }
+.sync.off::before { background: var(--bad); }
 .tips { background: var(--surface); border-radius: 20px; padding: 18px; display: grid; gap: 10px; }
 .tips ol { margin: 0; padding-left: 1.3em; display: grid; gap: 8px; }
 .tips li::marker { font-weight: 800; color: var(--every); }
@@ -220,6 +225,7 @@ dialog button { margin-top: 10px; }
   <div class="progress" aria-live="polite">
     <div class="progress-row"><span id="prog-label">Let's go!</span><span id="prog-count">0 of 0</span></div>
     <div class="bar"><i id="prog-bar"></i></div>
+    <span class="sync connecting" id="sync">Connecting…</span>
   </div>
 
   <div class="step"><div class="step-num">2</div><div><small>Step 2 · first 10 minutes</small><h2>Start the machines</h2></div></div>
@@ -257,7 +263,6 @@ dialog button { margin-top: 10px; }
       <p style="font-weight:700;margin-bottom:8px">Supplies to keep stocked (tell Michael when low)</p>
       <div class="supplies" id="supplies"></div>
     </div>
-    <button class="btn ghost" id="reset" type="button" style="justify-self:start">Clear all ticks for this date</button>
   </section>
 </div>
 
@@ -518,6 +523,7 @@ function choose(k) {
   renderDates();
   renderToday();
   renderRooms();
+  connect();
 }
 
 function renderToday() {
@@ -583,19 +589,68 @@ function renderRooms() {
         li.appendChild(bar);
       }
       li.querySelector("input").addEventListener("change", (e) => {
-        if (e.target.checked) ticks[t.id] = true; else delete ticks[t.id];
-        li.classList.toggle("checked", e.target.checked);
-        store.set("ticks-" + sel, ticks);
-        roomCount(sec, tasks);
-        progress();
+        applyTick(t.id, e.target.checked);
+        sendTick(t.id, e.target.checked);
       });
       ul.appendChild(li);
     });
     sec.appendChild(ul);
+    sec._tasks = tasks;
     roomCount(sec, tasks);
     $("step" + room.step).appendChild(sec);
   });
   progress();
+}
+
+// Live sync: every tick is sent to a shared ntfy.sh channel for that date; both phones listen and replay the day's ticks on open
+const SYNC_BASE = "cleanlist-7kq2m9x4p8w3r6zt";
+const ME = Math.random().toString(36).slice(2, 10);
+let es = null;
+let lastTs = {};
+
+function applyTick(id, on) {
+  if (on) ticks[id] = true; else delete ticks[id];
+  store.set("ticks-" + sel, ticks);
+  const box = document.getElementById("t-" + id);
+  if (box) {
+    box.checked = on;
+    box.closest(".task").classList.toggle("checked", on);
+    const sec = box.closest(".room");
+    if (sec && sec._tasks) roomCount(sec, sec._tasks);
+  }
+  progress();
+}
+
+function sendTick(id, on) {
+  const t = Date.now();
+  lastTs[id] = t;
+  fetch("https://ntfy.sh/" + SYNC_BASE + "-" + sel, { method: "POST", body: JSON.stringify({ id, on, t, by: ME }) })
+    .catch(() => setSync("off"));
+}
+
+function setSync(s) {
+  const el = $("sync");
+  el.className = "sync " + s;
+  el.textContent = s === "on" ? "Live: ticks show on both phones" : s === "connecting" ? "Connecting…" : "Offline: ticks saved on this phone only. They send again when you are back online.";
+}
+
+function connect() {
+  if (es) es.close();
+  lastTs = {};
+  setSync("connecting");
+  if (!window.EventSource) { setSync("off"); return; }
+  es = new EventSource("https://ntfy.sh/" + SYNC_BASE + "-" + sel + "/sse?since=all");
+  es.onopen = () => setSync("on");
+  es.onerror = () => setSync(navigator.onLine === false ? "off" : "connecting");
+  es.onmessage = (ev) => {
+    let m;
+    try { const outer = JSON.parse(ev.data); if (outer.event && outer.event !== "message") return; m = JSON.parse(outer.message); } catch (e) { return; }
+    if (!m || typeof m.id !== "string" || !/^\d+-\d+$/.test(m.id) || typeof m.t !== "number") return;
+    if ((lastTs[m.id] || 0) > m.t) return;
+    lastTs[m.id] = m.t;
+    if (!!ticks[m.id] !== !!m.on) applyTick(m.id, !!m.on);
+    setSync("on");
+  };
 }
 
 function roomCount(sec, tasks) {
@@ -652,11 +707,6 @@ $("copy").addEventListener("click", () => {
     const g = getSelection(); g.removeAllRanges(); g.addRange(r);
     $("status").textContent = "Summary selected. Tap Copy on your phone, then paste it to Michael.";
   });
-});
-let armed = false;
-$("reset").addEventListener("click", () => {
-  if (!armed) { armed = true; $("reset").textContent = "Tap again to clear every tick"; setTimeout(() => { armed = false; $("reset").textContent = "Clear all ticks for this date"; }, 4000); return; }
-  armed = false; ticks = {}; store.set("ticks-" + sel, ticks); $("reset").textContent = "Clear all ticks for this date"; $("status").textContent = "All ticks cleared for this date."; renderRooms();
 });
 
 $("supplies").innerHTML = SUPPLIES.map((s) => `<span>${s}</span>`).join("");
