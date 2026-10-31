@@ -3,6 +3,23 @@ const assert = require('node:assert/strict');
 const RepairsClient = require('../repairs-client.js');
 const item = (revision, status = 'todo') => ({ id: 'test-job', revision, status });
 
+test('supply clients preserve confirmed state and expose existing requests on conflicts', async () => {
+  let fail = false;
+  const calls = [];
+  const client = new RepairsClient({ endpoint: '/api/supplies', listKey: 'items', itemKey: 'item', request: async (path, body) => {
+    calls.push({ path, body });
+    if (fail) throw Object.assign(new Error('Already requested'), { status: 409, result: { item: { id: 'existing-item', revision: 2, status: 'ordered' } } });
+    return body ? { item: { id: 'supply-item', revision: 1, status: 'needed' } } : { items: [] };
+  } });
+  await client.refresh(); await client.save('supply-item', { name: 'Filter' });
+  assert.equal(calls[0].path, '/api/supplies');
+  fail = true;
+  await assert.rejects(client.save('supply-item', { status: 'restocked' }, 1));
+  assert.equal(calls[2].path, '/api/supplies/supply-item');
+  assert.equal(client.records.get('supply-item').status, 'needed');
+  assert.equal(client.records.get('existing-item').status, 'ordered');
+});
+
 test('delayed polling cannot replace a newer confirmed repair', () => {
   let renders = 0;
   const client = new RepairsClient({ request: async () => {}, onChange: () => renders++ });

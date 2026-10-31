@@ -24,6 +24,8 @@ The backend source is maintained separately in the sibling azure-cleaning-servic
 - Home repairs (`repairs.html`) is a shared, persistent snag list independent of visit dates. Jobs can be added, edited, assigned, moved between To do / In progress / Fixed, and reopened. Fixed jobs retain their completion date while fixed.
 - Repairs refresh every three seconds while visible. Changes require a connection and show success only after the server confirms. Revision checks prevent one phone from silently overwriting another's edits; unchanged polls preserve focus and open forms.
 - Find help opens a Google Maps trade search for Palm Jumeirah. It does not book or contact a contractor.
+- Cleaning supplies (`supplies.html`) saves shared product/part requests, quantities, stock level and notes across visits. Coffee-machine filters and Shark StainForce spray are suggestions, not seeded requests. Needed / Ordered requests remain active; Restocked / No longer needed requests stay in History. Duplicate active item names are rejected atomically. Requests require a connection; failed edits remain in the open form.
+- Each newly saved visit contains an immutable snapshot of active supply requests and includes them in its WhatsApp summary. A separate Send list to Michael button refreshes the shared list before opening WhatsApp; the cleaner still taps Send. Existing visit-only supply drafts remain accessible until cleared, while new requests use the shared area.
 - The original ticks-YYYY-MM-DD localStorage keys are retained and migrated without overwriting newer shared records.
 
 ## Access
@@ -37,6 +39,7 @@ As requested, this is an unlisted, account-free link, not a private website. Any
 - cloud.js: persistent shared transport, retries, and save operations.
 - app.js / styles.css: interface, photo guides, visit history, responsive layout.
 - repairs.html / repairs.css / repairs.js / repairs-client.js: shared home repair list and editing flow. `node tests/repairs.integration.cjs` exercises creation, shared updates, conflicts and completion against the local service only.
+- supplies.html / supplies.css / supplies.js: product and part requests, status history and WhatsApp sharing. `node tests/supplies.integration.cjs` verifies shared persistence, duplicate/race protection and report snapshots against loopback only.
 
 ## Photography
 

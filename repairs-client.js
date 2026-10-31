@@ -1,6 +1,6 @@
 /* Server-confirmed shared repairs. Revisions keep delayed responses from hiding newer changes. */
 class RepairsClient {
-  constructor({ request, onChange = () => {} }) { this.request = request; this.onChange = onChange; this.records = new Map(); }
+  constructor({ request, onChange = () => {}, endpoint = "/api/issues", listKey = "issues", itemKey = "issue" }) { Object.assign(this, { request, onChange, endpoint, listKey, itemKey }); this.records = new Map(); }
   merge(issues) {
     let changed = !this.initialized;
     for (const issue of issues) if (issue && (!this.records.has(issue.id) || this.records.get(issue.id).revision < issue.revision)) { this.records.set(issue.id, issue); changed = true; }
@@ -9,14 +9,14 @@ class RepairsClient {
   }
   async refresh() {
     if (this.refreshing) return this.refreshing;
-    this.refreshing = this.request("/api/issues").then(data => this.merge(data.issues)).finally(() => { this.refreshing = null; });
+    this.refreshing = this.request(this.endpoint).then(data => this.merge(data[this.listKey])).finally(() => { this.refreshing = null; });
     return this.refreshing;
   }
   async save(id, fields, revision) {
     try {
-      const result = await this.request(revision ? "/api/issues/" + encodeURIComponent(id) : "/api/issues", revision ? { revision, changes: fields } : { id, fields });
-      this.merge([result.issue]); return result.issue;
-    } catch (error) { if (error.result?.issue) this.merge([error.result.issue]); throw error; }
+      const result = await this.request(revision ? this.endpoint + "/" + encodeURIComponent(id) : this.endpoint, revision ? { revision, changes: fields } : { id, fields });
+      this.merge([result[this.itemKey]]); return result[this.itemKey];
+    } catch (error) { if (error.result?.[this.itemKey]) this.merge([error.result[this.itemKey]]); throw error; }
   }
 }
 if (typeof module !== "undefined") module.exports = RepairsClient;

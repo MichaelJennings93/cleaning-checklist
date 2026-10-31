@@ -196,6 +196,7 @@ function selectRoom(ri, scroll = true) {
   }
 }
 function renderSupplies() {
+  $("legacy-supplies").hidden = !lowSupplies.length;
   $("supplies").innerHTML = SUPPLIES.map(s => '<button class="supply" data-supply="' + safe(s) + '" aria-pressed="' + lowSupplies.includes(s) + '">' + safe(s) + '</button>').join("");
   $("supply-count").textContent = lowSupplies.length ? "(" + lowSupplies.length + ")" : "";
 }

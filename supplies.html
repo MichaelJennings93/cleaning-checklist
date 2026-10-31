@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow"><meta name="theme-color" content="#21594c">
+<meta name="description" content="Request cleaning products and replacement parts for Azure Residences.">
+<title>Azure · Cleaning supplies</title>
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;550;600;650;700&family=Manrope:wght@400;500;600;650;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="repairs.css"><link rel="stylesheet" href="supplies.css">
+<script src="core.js" defer></script><script src="cloud.js" defer></script><script src="repairs-client.js" defer></script><script src="supplies.js" defer></script>
+</head>
+<body class="repairs-page supplies-page">
+<a class="skip-link" href="#requests">Skip to supply requests</a>
+<aside class="sidebar">
+  <a class="brand" href="./" aria-label="Azure home"><span class="brand-mark" aria-hidden="true">a<span>~</span></span><span>azure<span class="brand-sub">RESIDENCE CARE</span></span></a>
+  <div class="sidebar-label">YOUR HOME</div>
+  <nav class="main-nav" aria-label="Main navigation">
+    <a href="./#visit" class="nav-link"><span data-icon="sun"></span>Visit overview<span class="nav-arrow">↗</span></a>
+    <a href="./#checklist" class="nav-link"><span data-icon="checklist"></span>Cleaning checklist<span class="nav-arrow">↗</span></a>
+    <a href="repairs.html" class="nav-link"><span data-icon="repair"></span>Home repairs<span class="nav-arrow">↗</span></a>
+    <a href="supplies.html" class="nav-link selected" aria-current="page"><span data-icon="bag"></span>Cleaning supplies<span class="nav-arrow">↗</span></a>
+    <a href="./#report" class="nav-link"><span data-icon="send"></span>Finish & report<span class="nav-arrow">↗</span></a>
+  </nav>
+  <div class="repair-sidebar-note"><span class="eyebrow">READY FOR THE NEXT CLEAN</span><p>The right products.<br>Everything within reach.</p></div>
+  <div class="home-card"><img src="img/hero-sea.jpg" alt="The sea view from Azure Residences"><span>OUR LITTLE CORNER OF THE PALM</span><p>A home worth caring for.</p></div>
+  <div class="sidebar-foot"><span class="tiny-wave">≈</span> Made for a beautiful everyday.</div>
+</aside>
+<div class="page">
+  <header class="topbar"><a class="mobile-brand" href="./">azure<span>RESIDENCE CARE</span></a><div class="breadcrumb">Azure Residences <span>/</span> <b>Cleaning supplies</b></div><a class="repair-back" href="./#checklist">← Cleaning checklist</a></header>
+  <main class="repairs-main">
+    <section class="repair-intro" aria-labelledby="supply-title"><div><span class="eyebrow">KEEP THE CUPBOARD READY</span><h1 id="supply-title">Cleaning supplies<span>.</span></h1><p>Running low? Request a product or replacement part here, so it’s ready for the next clean.</p></div><button class="button button-dark" id="add-request"><span data-icon="plus"></span>Request an item</button></section>
+    <div class="repair-stats" aria-label="Supply request totals"><div><span class="status-dot todo"></span><strong id="count-needed">—</strong><span>Needed</span></div><div><span class="status-dot progress"></span><strong id="count-ordered">—</strong><span>Ordered</span></div><div><span class="status-dot fixed"></span><strong id="count-restocked">—</strong><span>Restocked</span></div></div>
+    <div class="repair-sharing"><span class="sync" id="supply-sync" role="status">Connecting to the shared list…</span><span>One list, shared across visits.</span></div>
+    <section class="quick-requests" aria-labelledby="quick-heading"><div><span class="eyebrow">A QUICK START</span><h2 id="quick-heading">Something for your kit?</h2><p>Tap to add the quantity and details.</p></div><div class="quick-grid">
+      <button class="quick-request" data-preset="coffee"><span class="quick-icon" data-icon="coffee"></span><span><strong>Coffee-machine filters</strong><small>Add the filter type or machine model.</small></span><span data-icon="plus"></span></button>
+      <button class="quick-request" data-preset="stain"><span class="quick-icon" data-icon="spray"></span><span><strong>Shark StainForce spray</strong><small>Refill for the stain remover.</small></span><span data-icon="plus"></span></button>
+    </div><details class="other-supplies"><summary>Other everyday supplies <span>+</span></summary><div class="supply-suggestions" id="supply-suggestions"></div></details></section>
+    <section id="requests" aria-labelledby="requests-heading">
+      <div class="repair-toolbar"><h2 id="requests-heading">The shared shopping list.</h2><label class="repair-search"><span data-icon="search"></span><input type="search" id="supply-search" placeholder="Search requests" aria-label="Search supply requests"></label></div>
+      <div class="repair-filters supply-filters" role="group" aria-label="Filter supply requests"><button data-filter="active" aria-pressed="true">Needed & ordered</button><button data-filter="history" aria-pressed="false">History</button><button data-filter="all" aria-pressed="false">All requests</button></div>
+      <p id="supply-notice" role="status" hidden></p>
+      <div id="request-list" aria-busy="true"><div class="repair-empty">Loading your shared requests…</div></div>
+      <button id="retry-supplies" class="button save-only" hidden>Try again</button>
+      <div class="supply-share"><div><h3>Keep Michael in the loop.</h3><p>Open requests are included when you save a cleaning report. You can also send this list now.</p><small id="share-hint">WhatsApp opens a draft. Tap Send there.</small></div><button id="send-supplies" class="button button-dark" disabled><span data-icon="send"></span>Send list to Michael</button></div>
+      <p class="repair-footnote">A request does not place an order. Mark Ordered after buying, and Restocked once it arrives. Past requests stay in History.</p>
+    </section>
+    <footer class="page-footer"><span>AZURE RESIDENCES · PALM JUMEIRAH</span><a href="./#checklist">Back to cleaning →</a></footer>
+  </main>
+</div>
+<nav class="mobile-nav" aria-label="Mobile navigation"><a href="./#visit"><span data-icon="sun"></span>Visit</a><a href="./#checklist"><span data-icon="checklist"></span>Checklist</a><a href="repairs.html"><span data-icon="repair"></span>Repairs</a><a href="supplies.html" class="active" aria-current="page"><span data-icon="bag"></span>Supplies</a><a href="./#report"><span data-icon="send"></span>Report</a></nav>
+<dialog id="supply-dialog" aria-labelledby="supply-dialog-title">
+  <div class="dialog-head"><div><span class="eyebrow">AZURE · CLEANING SUPPLIES</span><h2 id="supply-dialog-title">Request an item</h2></div><button class="icon-button" id="close-request" aria-label="Close supply request"><span data-icon="close"></span></button></div>
+  <form id="supply-form">
+    <label for="supply-name">What do you need?</label><input id="supply-name" required maxlength="180" placeholder="Product or replacement part">
+    <div class="repair-field-pair"><div><label for="supply-quantity">How much?</label><input id="supply-quantity" maxlength="80" placeholder="e.g. 1 bottle or 2 packs"></div><div><label for="supply-priority">Stock level</label><select id="supply-priority"><option value="soon">Running low</option><option value="out">Out of stock</option></select></div></div>
+    <label for="supply-notes">Details & updates</label><textarea id="supply-notes" maxlength="3000" rows="4" placeholder="Brand, size, machine model, product link or delivery update…"></textarea>
+    <label for="supply-status">Request status</label><select id="supply-status"><option value="needed">Needed</option><option value="ordered">Ordered</option><option value="restocked">Restocked</option><option value="cancelled">No longer needed</option></select>
+    <p class="repair-form-hint">Saved for everyone using your cleaning link. Check the model or part number before ordering replacements.</p>
+    <p id="supply-error" role="alert" hidden></p><button type="button" class="repair-action" id="open-existing" hidden>Open the latest shared request</button>
+    <div class="repair-form-actions"><button type="button" class="button save-only" id="cancel-request">Cancel</button><button type="submit" class="button button-dark" id="save-request">Save request<span data-icon="check"></span></button></div>
+  </form>
+</dialog>
+<noscript><p class="noscript">Please enable JavaScript to view and update supply requests.</p></noscript>
+</body>
+</html>
