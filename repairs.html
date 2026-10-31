@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow"><meta name="theme-color" content="#21594c">
+<meta name="description" content="The shared home repair and snag list for Azure Residences.">
+<title>Azure · Home repairs</title>
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;550;600;650;700&family=Manrope:wght@400;500;600;650;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="repairs.css">
+<script src="core.js" defer></script><script src="cloud.js" defer></script><script src="repairs-client.js" defer></script><script src="repairs.js" defer></script>
+</head>
+<body class="repairs-page">
+<a class="skip-link" href="#jobs">Skip to repairs</a>
+<aside class="sidebar">
+  <a class="brand" href="./" aria-label="Azure home"><span class="brand-mark" aria-hidden="true">a<span>~</span></span><span>azure<span class="brand-sub">RESIDENCE CARE</span></span></a>
+  <div class="sidebar-label">YOUR HOME</div>
+  <nav class="main-nav" aria-label="Main navigation">
+    <a href="./#visit" class="nav-link"><span data-icon="sun"></span>Visit overview<span class="nav-arrow">↗</span></a>
+    <a href="./#checklist" class="nav-link"><span data-icon="checklist"></span>Cleaning checklist<span class="nav-arrow">↗</span></a>
+    <a href="repairs.html" class="nav-link selected" aria-current="page"><span data-icon="repair"></span>Home repairs<span class="nav-arrow">↗</span></a>
+    <a href="./#report" class="nav-link"><span data-icon="send"></span>Finish & report<span class="nav-arrow">↗</span></a>
+  </nav>
+  <div class="repair-sidebar-note"><span class="eyebrow">ONE SHARED LIST</span><p>Small snags. Bigger jobs.<br>Keep every repair in sight.</p></div>
+  <div class="home-card"><img src="img/hero-sea.jpg" alt="The sea view from Azure Residences"><span>OUR LITTLE CORNER OF THE PALM</span><p>A home worth caring for.</p></div>
+  <div class="sidebar-foot"><span class="tiny-wave">≈</span> Made for a beautiful everyday.</div>
+</aside>
+<div class="page">
+  <header class="topbar"><a class="mobile-brand" href="./">azure<span>RESIDENCE CARE</span></a><div class="breadcrumb">Azure Residences <span>/</span> <b>Home repairs</b></div><a class="repair-back" href="./#checklist">← Cleaning checklist</a></header>
+  <main class="repairs-main">
+    <section class="repair-intro" aria-labelledby="repair-title"><div><span class="eyebrow">A LITTLE CARE, BEYOND THE CLEAN</span><h1 id="repair-title">Home repairs<span>.</span></h1><p>Your shared snag list. Arrange the help, follow the progress, and tick off the fixes.</p></div><button class="button button-dark" id="add-issue"><span data-icon="plus"></span>Add a job</button></section>
+    <div class="repair-stats" aria-label="Repair totals"><div><span class="status-dot todo"></span><strong id="count-todo">—</strong><span>To do</span></div><div><span class="status-dot progress"></span><strong id="count-progress">—</strong><span>In progress</span></div><div><span class="status-dot fixed"></span><strong id="count-fixed">—</strong><span>Fixed</span></div></div>
+    <div class="repair-sharing"><span class="sync" id="repair-sync" role="status">Connecting to the shared list…</span><span>Jobs carry forward between visits.</span></div>
+    <section id="jobs" aria-labelledby="jobs-heading">
+      <div class="repair-toolbar"><h2 id="jobs-heading">The things to take care of.</h2><label class="repair-search"><span data-icon="search"></span><input type="search" id="job-search" placeholder="Search jobs or people" aria-label="Search repair jobs"></label></div>
+      <div class="repair-filters" role="group" aria-label="Filter repair jobs"><button data-filter="all" aria-pressed="true">All jobs</button><button data-filter="todo" aria-pressed="false">To do</button><button data-filter="progress" aria-pressed="false">In progress</button><button data-filter="fixed" aria-pressed="false">Fixed</button></div>
+      <p id="repair-notice" role="status" hidden></p>
+      <div id="issue-list" aria-busy="true"><div class="repair-empty">Loading your repair list…</div></div>
+      <button id="retry-load" class="button save-only" hidden>Try again</button>
+      <p class="repair-footnote">Fixed jobs stay here as a record. You can reopen them whenever needed.</p>
+    </section>
+    <footer class="page-footer"><span>AZURE RESIDENCES · PALM JUMEIRAH</span><a href="./#checklist">Back to cleaning →</a></footer>
+  </main>
+</div>
+<nav class="mobile-nav" aria-label="Mobile navigation"><a href="./#visit"><span data-icon="sun"></span>Visit</a><a href="./#checklist"><span data-icon="checklist"></span>Checklist</a><a href="repairs.html" class="active" aria-current="page"><span data-icon="repair"></span>Repairs</a><a href="./#report"><span data-icon="send"></span>Report</a></nav>
+<dialog id="issue-dialog" aria-labelledby="issue-dialog-title">
+  <div class="dialog-head"><div><span class="eyebrow">AZURE · HOME REPAIRS</span><h2 id="issue-dialog-title">Add a job</h2></div><button class="icon-button" id="close-issue" aria-label="Close repair details"><span data-icon="close"></span></button></div>
+  <form id="issue-form">
+    <label for="issue-title">What needs fixing?</label><input id="issue-title" name="title" required maxlength="180" placeholder="e.g. Repair the balcony door handle">
+    <div class="repair-field-pair"><div><label for="issue-area">Where?</label><input id="issue-area" name="area" maxlength="80" placeholder="e.g. Balcony"></div><div><label for="issue-status">Status</label><select id="issue-status" name="status"><option value="todo">To do</option><option value="progress">In progress</option><option value="fixed">Fixed</option></select></div></div>
+    <label for="issue-detail">Job details</label><textarea id="issue-detail" name="detail" maxlength="3000" rows="3" placeholder="What needs to be repaired or replaced?"></textarea>
+    <label for="issue-trade">Type of help needed</label><input id="issue-trade" name="trade" maxlength="120" placeholder="e.g. Plumber or carpenter">
+    <label for="issue-assignedTo">Who’s handling it?</label><input id="issue-assignedTo" name="assignedTo" maxlength="200" placeholder="Person or company; leave blank until arranged">
+    <label for="issue-notes">Updates & notes</label><textarea id="issue-notes" name="notes" maxlength="5000" rows="3" placeholder="Quotes, contact details, appointment or what was fixed…"></textarea>
+    <p class="repair-form-hint">Saved details are shared with everyone using your cleaning link.</p>
+    <p id="issue-error" role="alert" hidden></p><button type="button" class="guide-source" id="load-latest" hidden>Load the latest shared version</button>
+    <div class="repair-form-actions"><button type="button" class="button save-only" id="cancel-issue">Cancel</button><button type="submit" class="button button-dark" id="save-issue">Save job<span data-icon="check"></span></button></div>
+  </form>
+</dialog>
+<noscript><p class="noscript">Please enable JavaScript to view and update shared home repairs.</p></noscript>
+</body>
+</html>

@@ -21,6 +21,9 @@ The backend source is maintained separately in the sibling azure-cleaning-servic
 - Save & WhatsApp saves first, then opens the prefilled message. The cleaner must tap Send in WhatsApp. The app does not claim delivery.
 - Saved visits are available on both phones and can be downloaded as text reports.
 - Notes and supply selections are local drafts until a report is saved.
+- Home repairs (`repairs.html`) is a shared, persistent snag list independent of visit dates. Jobs can be added, edited, assigned, moved between To do / In progress / Fixed, and reopened. Fixed jobs retain their completion date while fixed.
+- Repairs refresh every three seconds while visible. Changes require a connection and show success only after the server confirms. Revision checks prevent one phone from silently overwriting another's edits; unchanged polls preserve focus and open forms.
+- Find help opens a Google Maps trade search for Palm Jumeirah. It does not book or contact a contractor.
 - The original ticks-YYYY-MM-DD localStorage keys are retained and migrated without overwriting newer shared records.
 
 ## Access
@@ -33,6 +36,7 @@ As requested, this is an unlisted, account-free link, not a private website. Any
 - core.js: Dubai calendar, task schedule, report text, local progress/outbox.
 - cloud.js: persistent shared transport, retries, and save operations.
 - app.js / styles.css: interface, photo guides, visit history, responsive layout.
+- repairs.html / repairs.css / repairs.js / repairs-client.js: shared home repair list and editing flow. `node tests/repairs.integration.cjs` exercises creation, shared updates, conflicts and completion against the local service only.
 
 ## Photography
 

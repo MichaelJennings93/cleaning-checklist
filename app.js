@@ -1,6 +1,7 @@
 const $ = id => document.getElementById(id);
 const C = CleanCore;
 const ICONS = {
+  repair: '<path d="M14 6a5 5 0 0 0-6 6L3 17a3 3 0 0 0 4 4l5-5a5 5 0 0 0 6-6l-3 3-4-4 3-3Z"/>',
   sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/>',
   checklist: '<rect x="5" y="4" width="15" height="17" rx="2"/><path d="M9 2v4m7-4v4M9 11l1 1 2-2m2 1h3M9 16l1 1 2-2m2 1h3"/>',
   arrow: '<path d="M4 12h16m-6-6 6 6-6 6"/>',

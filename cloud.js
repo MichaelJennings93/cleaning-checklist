@@ -32,7 +32,7 @@ class CloudClient extends CleanCore.SyncClient {
       return this.request(path, body, false);
     }
     const result = await response.json();
-    if (!response.ok) throw new Error(result.error || "Could not save right now. Please try again.");
+    if (!response.ok) throw Object.assign(new Error(result.error || "Could not save right now. Please try again."), { status: response.status, result });
     return result;
   }
   connect(date) {
